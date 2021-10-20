@@ -176,7 +176,7 @@ public:
     virtual CardSecuritySetting& addAuthorizedSvKey(const uint8_t kif, const uint8_t kvc) = 0;
 
     /**
-     * Sets the KIF/KVC pair of the PIN ciphering key.
+     * Sets the KIF/KVC pair of the PIN verification ciphering key.
      *
      * <p>The default value for both KIF and KVC is 0.
      *
@@ -185,146 +185,21 @@ public:
      * @return The current instance.
      * @since 1.0
      */
-    virtual CardSecuritySetting& setPinCipheringKey(const uint8_t kif, const uint8_t kvc) = 0;
+    virtual CardSecuritySetting& setPinVerificationCipheringKey(const uint8_t kif, 
+                                                                const uint8_t kvc) = 0;
 
     /**
-     * Gets the associated SAM reader to use for secured operations.
+     * Sets the KIF/KVC pair of the PIN modification ciphering key.
      *
-     * @return Null if no SAM reader is set.
-     * @since 1.0
-     */
-    virtual std::shared_ptr<CardReader> getSamReader() const = 0;
-
-    /**
-     * Gets the SAM used for secured operations.
-     *
-     * @return Null if no SAM is set or a calypsonet::terminal::calypso::sam::CalypsoSam having a
-     *         calypsonet::terminal::calypso::sam::CalypsoSam::ProductType different from
-     *         calypsonet::terminal::calypso::sam::CalypsoSam::ProductType::UNKNOWN.
-     * @since 1.0
-     */
-    virtual const std::shared_ptr<CalypsoSam> getCalypsoSam() const = 0;
-
-    /**
-     * Indicates if the multiple session mode is enabled.
-     *
-     * @return True if the multiple session mode is enabled.
-     * @since 1.0
-     */
-    virtual bool isMultipleSessionEnabled() const = 0;
-
-    /**
-     * Indicates if the ratification mechanism is enabled.
-     *
-     * @return True if the ratification mechanism is enabled.
-     * @since 1.0
-     */
-    virtual bool isRatificationMechanismEnabled() const = 0;
-
-    /**
-     * Indicates if the transmission of the PIN in plain text is enabled.
-     *
-     * @return True if the transmission of the PIN in plain text is enabled.
-     * @since 1.0
-     */
-    virtual bool isPinPlainTransmissionEnabled() const = 0;
-
-    /**
-     * Indicates if the transaction audit is enabled.
-     *
-     * @return True if the transaction audit is enabled.
-     * @since 1.0
-     */
-    virtual bool isTransactionAuditEnabled() const = 0;
-
-    /**
-     * Indicates if the retrieval of both load and debit log is enabled.
-     *
-     * @return True if the retrieval of both load and debit log is enabled.
-     * @since 1.0
-     */
-    virtual bool isSvLoadAndDebitLogEnabled() const = 0;
-
-    /**
-     * Indicates if the SV balance is allowed to become negative.
-     *
-     * @return True if the retrieval of both load and debit log is enabled.
-     * @since 1.0
-     */
-    virtual bool isSvNegativeBalanceAuthorized() const = 0;
-
-    /**
-     * Gets the KIF value to use for the provided write access level and KVC
-     * value.
-     *
-     * @param writeAccessLevel The write access level.
-     * @param kvc The KVC value.
-     * @return Null if no KIF is available.
-     * @throw IllegalArgumentException If the provided writeAccessLevel is null.
-     * @since 1.0
-     */
-    virtual const std::shared_ptr<uint8_t> getKif(const WriteAccessLevel writeAccessLevel,
-                                                  const uint8_t kvc) const = 0;
-
-    /**
-     * Gets the default KIF value for the provided write access level.
-     *
-     * @param writeAccessLevel The write access level.
-     * @return Null if no KIF is available.
-     * @throw IllegalArgumentException If the provided argument is null.
-     * @since 1.0
-     */
-    virtual const std::shared_ptr<uint8_t> getDefaultKif(const WriteAccessLevel writeAccessLevel)
-        const = 0;
-
-    /**
-     * Gets the default KVC value for the provided write access level.
-     *
-     * @param writeAccessLevel The write access level.
-     * @return Null if no KVC is available.
-     * @throw IllegalArgumentException If the provided argument is null.
-     * @since 1.0
-     */
-    virtual const std::shared_ptr<uint8_t> getDefaultKvc(const WriteAccessLevel writeAccessLevel)
-        const = 0;
-
-    /**
-     * Indicates if the KIF/KVC pair is authorized for a session.
+     * <p>The default value for both KIF and KVC is 0.
      *
      * @param kif The KIF value.
      * @param kvc The KVC value.
-     * @return False if KIF or KVC is null or unauthorized.
+     * @return The current instance.
      * @since 1.0
      */
-    virtual bool isSessionKeyAuthorized(const std::shared_ptr<uint8_t> kif,
-                                        const std::shared_ptr<uint8_t> kvc) const = 0;
-
-    /**
-     * Indicates if the KIF/KVC pair is authorized for a SV operation.
-     *
-     * @param kif The KIF value.
-     * @param kvc The KVC value.
-     * @return False if KIF or KVC is null or unauthorized.
-     * @since 1.0
-     */
-    virtual bool isSvKeyAuthorized(const std::shared_ptr<uint8_t> kif,
-                                   const std::shared_ptr<uint8_t> kvc) const = 0;
-
-    /**
-     * Gets the KIF value of the PIN ciphering key.
-     *
-     * @return Null if no KIF is available.
-     * @since 1.0
-     */
-    virtual const std::shared_ptr<uint8_t> getPinCipheringKif() const = 0;
-
-    /**
-     * Gets the KVC value of the PIN ciphering key.
-     *
-     * @return Null if no KVC is available.
-     * @since 1.0
-     */
-    virtual const std::shared_ptr<uint8_t> getPinCipheringKvc() const = 0;
+    virtual CardSecuritySetting& setPinModificationCipheringKey(const uint8_t kif, 
+                                                                const uint8_t kvc) = 0;
 };
 
 }
