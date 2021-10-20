@@ -31,8 +31,8 @@ SET(EXECTUABLE_NAME keypleterminalcalypso_ut)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ")
 
-SET(KEYPLE_UTIL_DIR        "../../../github.com.calypsonet.keyple-cpp-util")
-SET(KEYPLE_UTIL_LIB        "keypleutil")
+SET(KEYPLE_UTIL_DIR        "../../../github.com.calypsonet.keyple-util-cpp-lib")
+SET(KEYPLE_UTIL_LIB        "keypleutilcpplib")
 
 INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}
