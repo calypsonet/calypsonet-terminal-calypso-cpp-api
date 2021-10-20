@@ -488,13 +488,14 @@ public:
     /**
      * Schedules the execution of <b>Read Records</b> commands to read all SV logs.
      *
-     * <p>This method is
+     * <p>Note: this method requires that the selected application is of type Store Value (file
+     * structure 20h).
      *
      * <p>The SV transaction logs are contained in two files with fixed identifiers:
      *
      * <ul>
-     *   <li>The file whose SFI is 0x14 contains 1 record containing the unique reload log.
-     *   <li>The file whose SFI is 0x15 contains 3 records containing the last three debit logs.
+     *   <li>The file whose SFI is 14h contains 1 record containing the unique reload log.
+     *   <li>The file whose SFI is 15h contains 3 records containing the last three debit logs.
      * </ul>
      *
      * <p>At the end of this reading operation, the data will be accessible in CalypsoCard in raw
@@ -502,8 +503,9 @@ public:
      * (see calypsonet::terminal::calypso::card::CalypsoCard#getSvLoadLogRecord() and
      * calypsonet::terminal::calypso::card::CalypsoCard::getSvDebitLogAllRecords())
      *
-     * <p>Once this command is processed, the result is available in
-     * calypsonet::terminal::calypso::card::CalypsoCard.
+     * <p>At the end of this reading operation, the data will be accessible in CalypsoCard in
+     * raw format via the standard commands for accessing read files or in the form of dedicated
+     * objects (see CalypsoCard::getSvLoadLogRecord() and CalypsoCard::getSvDebitLogAllRecords()).
      *
      * <p>See the methods calypsonet::terminal::calypso::card::CalypsoCard#getSvBalance(),
      * calypsonet::terminal::calypso::card::CalypsoCard#getSvLoadLogRecord(),
@@ -511,6 +513,7 @@ public:
      * calypsonet::terminal::calypso::card::CalypsoCard#getSvDebitLogAllRecords().
      *
      * @return The current instance.
+     * @throw UnsupportedOperationException If the application is not of type Stored Value.
      * @since 1.0
      */
     virtual CardTransactionManager& prepareSvReadAllLogs() = 0;
@@ -775,12 +778,13 @@ public:
      *       possibly SV signature) are sent to the SAM for verification.
      * </ul>
      *
+     * @return The current instance.
      * @throw IllegalStateException If no session is open.
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *        errors)
      * @since 1.0
      */
-    virtual void processClosing() = 0;
+    virtual CardTransactionManager& processClosing() = 0;
 
     /**
      * Aborts a Secure Session.
@@ -789,12 +793,13 @@ public:
      *
      * <p>Clean up internal data and status.
      *
+     * @return The current instance.
      * @throw IllegalStateException If no session is open.
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *     errors)
      * @since 1.0
      */
-    virtual void processCancel() = 0;
+    virtual CardTransactionManager& processCancel() = 0;
 };
 
 }
