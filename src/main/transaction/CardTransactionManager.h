@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -57,7 +56,7 @@ using namespace calypsonet::terminal::reader;
  *
  * <p>Technical or data errors, security conditions, etc. are reported as exceptions.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CardTransactionManager {
 public:
@@ -65,7 +64,7 @@ public:
      * Gets the reader used to communicate with the card on which the transaction is performed.
      *
      * @return A not null reference.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::shared_ptr<CardReader> getCardReader() const = 0;
 
@@ -75,7 +74,7 @@ public:
      * @return A not null calypsonet::terminal::calypso::card::CalypsoCard having a
      *         calypsonet::terminal::calypso::card::CalypsoCard::ProductType different from
      *         calypsonet::terminal::calypso::card::CalypsoCard::ProductType::UNKNOWN.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::shared_ptr<CalypsoCard> getCalypsoCard() const = 0;
 
@@ -83,7 +82,7 @@ public:
      * Gets the settings defining the security parameters of the transaction.
      *
      * @return Null if the transaction does not use security settings.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::shared_ptr<CardSecuritySetting> getCardSecuritySetting() const = 0;
 
@@ -91,7 +90,7 @@ public:
      * Gets the audit data of the transaction.
      *
      * @return Null if there is no audit data.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::string getTransactionAuditData() const = 0;
 
@@ -106,7 +105,7 @@ public:
      * @param lid The LID of the EF to select.
      * @return The current instance.
      * @throw IllegalArgumentException If the provided lid is not 2 bytes long.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSelectFile(const std::vector<uint8_t>& lid) = 0;
 
@@ -122,7 +121,7 @@ public:
      * @param selectFileControl A calypsonet::terminal::calypso::card::SelectFileControl enum entry.
      * @return The current instance.
      * @throw IllegalArgumentException If selectFileControl is null.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSelectFile(const electFileControl selectFileControl) = 0;
 
@@ -137,7 +136,7 @@ public:
      * @throw IllegalArgumentException If tag is null.
      * @throw UnsupportedOperationException If the Get Data command with the provided tag is not
      *        supported.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareGetData(const GetDataTag tag) = 0;
 
@@ -157,7 +156,7 @@ public:
      * @param recordNumber The record number to read.
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided arguments is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareReadRecordFile(const uint8_t sfi, const int recordNumber)
         = 0;
@@ -181,7 +180,7 @@ public:
      * @param recordSize The record length.
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareReadRecordFile(const uint8_t sfi,
                                                           const int firstRecordNumber,
@@ -208,7 +207,7 @@ public:
      * @param countersNumber The number of the last counter to be read.
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareReadCounterFile(const uint8_t sfi,
                                                            const int countersNumber) = 0
@@ -226,7 +225,7 @@ public:
      *
      * @return The current instance.
      * @throw UnsupportedOperationException If the PIN feature is not available for this card.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareCheckPinStatus() = 0;
 
@@ -243,7 +242,7 @@ public:
      * @param recordData The new record data to write.
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareAppendRecord(const uint8_t sfi,
                                                         const std::vector<uin8_t>& recordData) = 0;
@@ -264,7 +263,7 @@ public:
      *        left unchanged.
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareUpdateRecord(const uint8_t sfi,
                                                         const int recordNumber,
@@ -286,7 +285,7 @@ public:
      *        beyond length are left unchanged.
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareWriteRecord(const uint8_t sfi,
                                                        const int recordNumber,
@@ -305,7 +304,7 @@ public:
      *        [FFFFFFh])
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareIncreaseCounter(const uint8_t sfi,
                                                            const int counterNumber,
@@ -324,7 +323,7 @@ public:
      *        16777215 [FFFFFFh])
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareDecreaseCounter(const uint8_t sfi,
                                                            const int counterNumber,
@@ -358,7 +357,7 @@ public:
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @throw IllegalStateException If the current counter value is unknown.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSetCounter(const uint8_t sfi,
                                                       const int counterNumber,
@@ -382,7 +381,7 @@ public:
      * @return The current instance.
      * @throw IllegalArgumentException If one of the arguments is null.
      * @throw UnsupportedOperationException If the SV feature is not available for this card.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvGet(const SvOperation svOperation,
                                                  const SvAction svAction) = 0;
@@ -405,7 +404,7 @@ public:
      * @throw UnsupportedOperationException If the SV feature is not available for this card.
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *        errors)
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvReload(const int amount,
                                                     const std::vector<uint8_t>& date,
@@ -428,7 +427,7 @@ public:
      * @throw UnsupportedOperationException If the SV feature is not available for this card.
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *        errors)
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvReload(const int amount) = 0;
 
@@ -451,7 +450,7 @@ public:
      * @param time 2-byte free value.
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvDebit(const int amount,
                                                    const std::vector<uint8_t> date,
@@ -481,7 +480,7 @@ public:
      *        when subtracted and 0..32768 when added.
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvDebit(const int amount) = 0;
 
@@ -514,7 +513,7 @@ public:
      *
      * @return The current instance.
      * @throw UnsupportedOperationException If the application is not of type Stored Value.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvReadAllLogs() = 0;
 
@@ -526,7 +525,7 @@ public:
      *
      * @throw IllegalStateException If the card is already invalidated.
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareInvalidate() = 0;
 
@@ -538,7 +537,7 @@ public:
      *
      * @return The current instance.
      * @throw IllegalStateException If the card is not invalidated.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareRehabilitate() = 0;
 
@@ -556,7 +555,7 @@ public:
      * processCardCommands must be made to effectively close the channel.
      *
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& prepareReleaseCardChannel() = 0;
 
@@ -583,7 +582,7 @@ public:
      * @return The current instance.
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *        errors)
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& processCardCommands() = 0;
 
@@ -611,7 +610,7 @@ public:
      *        method.
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *        errors)
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& processVerifyPin(const std::vector<uint8_t>& pin) = 0;
 
@@ -631,7 +630,7 @@ public:
      *        method.
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *        errors)
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& processVerifyPin(const std::string& pin) = 0;
 
@@ -727,7 +726,7 @@ public:
      *        calypsonet::terminal::calypso::transaction::CardSecuritySetting is available
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *        errors)
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& processOpening(const WriteAccessLevel writeAccessLevel) = 0;
 
@@ -782,7 +781,7 @@ public:
      * @throw IllegalStateException If no session is open.
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *        errors)
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& processClosing() = 0;
 
@@ -797,7 +796,7 @@ public:
      * @throw IllegalStateException If no session is open.
      * @throw CardTransactionException If a functional error occurs (including card and SAM IO
      *     errors)
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardTransactionManager& processCancel() = 0;
 };

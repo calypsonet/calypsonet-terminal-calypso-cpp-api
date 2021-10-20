@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -30,13 +29,13 @@ namespace transaction {
  * <p>This can occur, for example, if data read in session is different from data read outside the
  * session.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class InconsistencyDataException final : public CardTransactionException {
 public:
     /**
      * @param message The message to identify the exception context
-     * @since 1.0
+     * @since 1.0.0
      */
     InconsistencyDataException(const std::string& message) : CardTransactionException(message) {}
 };

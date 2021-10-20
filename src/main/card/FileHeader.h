@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -27,7 +26,7 @@ namespace card {
 /**
  * Calypso EF metadata.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class FileHeader {
 public:
@@ -35,7 +34,7 @@ public:
      * Gets the associated LID.
      *
      * @return The LID
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint16_t getLid() const = 0;
 
@@ -43,7 +42,7 @@ public:
      * Gets the DF status.
      *
      * @return The DF status byte
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getDfStatus() const = 0;
 
@@ -51,7 +50,7 @@ public:
      * Gets the Elementary File type.
      *
      * @return A not null file type.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual ElementaryFile::Type getEfType() const = 0;
 
@@ -65,7 +64,7 @@ public:
      * </ul>
      *
      * @return The number of records.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual int getRecordsNumber() const = 0;
 
@@ -79,7 +78,7 @@ public:
      * </ul>
      *
      * @return The size of a record.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual int getRecordSize() const = 0;
 
@@ -87,7 +86,7 @@ public:
      * Gets a reference to the access conditions.
      *
      * @return A not empty byte array reference.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getAccessConditions() const = 0;
 
@@ -95,7 +94,7 @@ public:
      * Gets a reference to the keys indexes.
      *
      * @return A not empty byte array reference.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getKeyIndexes() = 0;
 
@@ -103,7 +102,7 @@ public:
      * Gets the shared reference of a shared file.
      *
      * @return Null if file is not shared.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::shared_ptr<uint16_t> getSharedReference() const = 0;
 };

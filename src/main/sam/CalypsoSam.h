@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -30,48 +29,48 @@ using namespace calypsonet::terminal::reader::selection::spi;
 /**
  * A static and partial view of the SAM's content.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CalypsoSam : public SmartCard {
 public:
     /**
      * All Calypso SAM products supported by this API.
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     enum class ProductType {
         /**
          * SAM C1
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         SAM_C1,
 
         /**
          * SAM S1E1
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         SAM_S1E1,
 
         /**
          * SAM S1Dx
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         SAM_S1DX,
 
         /**
          * SAM CSAM_F
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         CSAM_F,
 
         /**
          * Unidentified smart card.
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         UNKNOWN
     };
@@ -80,7 +79,7 @@ public:
      * Gets the SAM product type.
      *
      * @return The identified product type.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual ProductType getProductType() const = 0;
 
@@ -88,7 +87,7 @@ public:
      * Gets a text description of the SAM.
      *
      * @return A not null String.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::string& getProductInfo() const = 0;
 
@@ -96,7 +95,7 @@ public:
      * Gets the SAM serial number as an array of bytes
      *
      * @return A not null array of bytes
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<uint8_t> getSerialNumber() const = 0;
 
@@ -104,7 +103,7 @@ public:
      * Gets the platform identifier
      *
      * @return A byte
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getPlatform() const = 0;
 
@@ -112,7 +111,7 @@ public:
      * Gets the application type
      *
      * @return A byte
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getApplicationType() const = 0;
 
@@ -120,7 +119,7 @@ public:
      * Gets the application subtype
      *
      * @return A byte
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getApplicationSubType() const = 0;
 
@@ -128,7 +127,7 @@ public:
      * Gets the software issuer identifier
      *
      * @return A byte
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getSoftwareIssuer() const = 0;
 
@@ -136,7 +135,7 @@ public:
      * Gets the software version number
      *
      * @return A byte
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getSoftwareVersion() const = 0;
 
@@ -144,7 +143,7 @@ public:
      * Gets the software revision number
      *
      * @return A byte
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getSoftwareRevision() const = 0;
 };

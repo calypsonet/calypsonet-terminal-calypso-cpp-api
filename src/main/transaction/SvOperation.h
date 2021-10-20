@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -21,20 +20,20 @@ namespace transaction {
 /**
  * Defines the type of Stored Value operation to be performed.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 enum class SvOperation {
     /**
      * Increase the balance of the stored value
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     RELOAD,
 
     /**
      * Decrease the balance of the stored value
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     DEBIT
 };

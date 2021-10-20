@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -24,7 +23,7 @@ namespace calypso {
  *
  * <p>Each level induces the use of one of the 3 session key levels.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 enum class WriteAccessLevel {
     /**
@@ -32,7 +31,7 @@ enum class WriteAccessLevel {
      *
      * <p>The <b>issuer key</b> will be used.
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     PERSONALIZATION,
 
@@ -41,7 +40,7 @@ enum class WriteAccessLevel {
      *
      * <p>The <b>load key</b> will be used.
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     LOAD,
 
@@ -50,7 +49,7 @@ enum class WriteAccessLevel {
      *
      * <p>The <b>debit key</b> will be used.
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     DEBIT
 };

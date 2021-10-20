@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -29,13 +28,13 @@ using namespace keyple::core::util::cpp::exception;
 /**
  * Parent abstract class of all Calypso card transaction functional exceptions.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CardTransactionException : public RuntimeException {
 protected:
     /**
      * @param message The message to identify the exception context
-     * @since 1.0
+     * @since 1.0.0
      */
     CardTransactionException(const std::string& message) : RuntimeException(message) {}
 
@@ -44,7 +43,7 @@ protected:
      *
      * @param message Message to identify the exception context.
      * @param cause The cause.
-     * @since 1.0
+     * @since 1.0.0
      */
     CardTransactionException(const std::string& message, const std::exception& cause)
     : RuntimeException(message, cause) {}

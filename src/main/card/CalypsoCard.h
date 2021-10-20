@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -56,48 +55,48 @@ using namespace calypsonet::terminal::reader::selection::spi;
  *       by the card transaction manager.
  * </ul>
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CalypsoCard final : public SmartCard {
 public:
     /**
      * All Calypso Card products supported by this API.
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     enum class ProductType {
         /**
          * Card Calypso Prime revision 1.x
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         PRIME_REVISION_1,
 
         /**
          * Card Calypso Prime revision 2.x
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         PRIME_REVISION_2,
 
         /**
          * Card Calypso Prime revision 3.x
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         PRIME_REVISION_3,
 
         /**
          * Card Calypso Light
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         LIGHT,
 
         /**
          * Card Calypso Basic
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         BASIC,
 
@@ -105,7 +104,7 @@ public:
          * Application type is equal to 0 or FFh or if the data provided by the selection process is
          * not properly formatted (bad TLV data).
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         UNKNOWN
     };
@@ -114,7 +113,7 @@ public:
      * Gets the card product type.
      *
      * @return A not null reference.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual ProductType getProductType() const = 0;
 
@@ -122,7 +121,7 @@ public:
      * Indicates if the card is a Calypso HCE (Host Card Emulation) .
      *
      * @return True if the card is a Calypso HCE.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual bool isHce() const = 0;
 
@@ -138,7 +137,7 @@ public:
      * minimum).
      *
      * @return A not null byte array containing the DF Name bytes (5 to 16 bytes)
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getDfName() const = 0;
 
@@ -146,7 +145,7 @@ public:
      * Gets the Calypso application serial number as an array of bytes.
      *
      * @return A not null byte array containing the Application Serial Number (8 bytes).
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getApplicationSerialNumber() const = 0;
 
@@ -154,7 +153,7 @@ public:
      * Gets the raw Calypso startup information.
      *
      * @return A not null byte array.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getStartupInfoRawData() const = 0;
 
@@ -162,7 +161,7 @@ public:
      * Gets the platform identification byte which is the reference of the chip.
      *
      * @return The platform identification byte.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getPlatform() const = 0;;
 
@@ -170,7 +169,7 @@ public:
      * Gets the Application Type byte which determines the Calypso product type and various options.
      *
      * @return The Application Type byte.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getApplicationType() const = 0;
 
@@ -179,7 +178,7 @@ public:
      * DF.
      *
      * @return The Application Subtype byte
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getApplicationSubtype() const = 0;
 
@@ -188,7 +187,7 @@ public:
      * selected application.
      *
      * @return The Software Issuer byte.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getSoftwareIssuer() const = 0;
 
@@ -197,7 +196,7 @@ public:
      * the Calypso application.
      *
      * @return The Software Version byte.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getSoftwareVersion() const = 0;
 
@@ -206,7 +205,7 @@ public:
      * the Calypso application.
      *
      * @return The Software Revision byte.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getSoftwareRevision() const = 0;
 
@@ -217,7 +216,7 @@ public:
      * of bytes that can be modified or the number of possible write commands in a session.
      *
      * @return The Session Modification byte.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual uint8_t getSessionModification() const = 0;
 
@@ -225,7 +224,7 @@ public:
      * Gets the DF metadata.
      *
      * @return Null if is not set.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::shared_ptr<DirectoryHeader> getDirectoryHeader() const = 0;
 
@@ -238,7 +237,7 @@ public:
      * @param sfi The SFI to search.
      * @return a not null reference.
      * @throw NoSuchElementException if requested EF is not found.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::shared_ptr<ElementaryFile> getFileBySfi(const uint8_t sfi) const = 0;
 
@@ -251,7 +250,7 @@ public:
      * @param lid The LID to search.
      * @return a not null reference.
      * @throws NoSuchElementException if requested EF is not found.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::shared_ptr<ElementaryFile> getFileByLid(const uint16_t lid) const = 0;
 
@@ -262,7 +261,7 @@ public:
      * modifications, which can be canceled if the secure session fails.
      *
      * @return A not null reference (may be empty if no one EF is set).
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::map<uint8_t, const std::shared_ptr<ElementaryFile>> getAllFiles() const = 0;
 
@@ -273,7 +272,7 @@ public:
      * command.
      *
      * @return True if the card has been invalidated.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual bool isDfInvalidated() const = 0;;
 
@@ -282,7 +281,7 @@ public:
      *
      * @return True if the card has been ratified.
      * @throws IllegalStateException If these methods is invoked when no session has been opened.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual bool isDfRatified() const = 0;
 
@@ -292,7 +291,7 @@ public:
      * <p>This boolean is interpreted from the Application Type byte
      *
      * @return True if the Public Key Authentication is supported.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual bool isPkiModeSupported() const = 0;
 
@@ -302,7 +301,7 @@ public:
      * <p>This boolean is interpreted from the Application Type byte
      *
      * @return True if the Extended Mode is supported.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual bool isExtendedModeSupported() const = 0;
 
@@ -312,7 +311,7 @@ public:
      * <p>This boolean is interpreted from the Application Type byte
      *
      * @return True if the ratification on deselect is supported.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual bool isRatificationOnDeselectSupported() const = 0;
 
@@ -322,7 +321,7 @@ public:
      * <p>This boolean is interpreted from the Application Type byte
      *
      * @return True if the card has the PIN feature.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual bool isPinFeatureAvailable() const = 0;
 
@@ -332,7 +331,7 @@ public:
      *
      * @return True if the PIN status is blocked
      * @throw IllegalStateException If the PIN has not been checked.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual bool isPinBlocked() const = 0;
 
@@ -341,7 +340,7 @@ public:
      *
      * @return The number of remaining attempts.
      * @throw IllegalStateException If the PIN has not been checked.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual int getPinAttemptRemaining() const = 0;
 
@@ -351,7 +350,7 @@ public:
      * <p>This boolean is interpreted from the Application Type byte
      *
      * @return True if the card has the Stored Value feature
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual bool isSvFeatureAvailable() const = 0;
 
@@ -360,7 +359,7 @@ public:
      *
      * @return An int
      * @throw IllegalStateException If no SV Get command has been executed.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual int getSvBalance() const = 0;
 
@@ -369,7 +368,7 @@ public:
      *
      * @return An int
      * @throw IllegalStateException If no SV Get command has been executed.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual int getSvLastTNum() const = 0;
 
@@ -377,7 +376,7 @@ public:
      * Gets a reference to the last SvLoadLogRecord
      *
      * @return A last SV load log record object or null if not available.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::shared_ptr<SvLoadLogRecord> getSvLoadLogRecord() const = 0;
 
@@ -385,7 +384,7 @@ public:
      * Gets a reference to the last SvDebitLogRecord
      *
      * @return A last SV debit log record object or null if not available.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::shared_ptr<SvDebitLogRecord> getSvDebitLogLastRecord() const = 0;
 
@@ -393,7 +392,7 @@ public:
      * Gets list of references to the SvDebitLogRecord read from the card.
      *
      * @return A empty list if no log records are available.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<std::shared_ptr<SvDebitLogRecord>> getSvDebitLogAllRecords() const
         = 0;

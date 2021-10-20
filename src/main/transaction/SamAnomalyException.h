@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -29,14 +28,14 @@ namespace transaction {
  *
  * <p>This can occur if the SAM is not Calypso compliant.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class SamAnomalyException final : public CardTransactionException {
 public:
     /**
      * @param message Message to identify the exception context.
      * @param cause The cause.
-     * @since 1.0
+     * @since 1.0.0
      */
     SamAnomalyException(const std::string& message, const std::exception& cause)
     : CardTransactionException(message, cause) {}

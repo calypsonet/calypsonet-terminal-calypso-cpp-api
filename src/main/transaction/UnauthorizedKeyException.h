@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -27,13 +26,13 @@ namespace transaction {
 /**
  * Indicates that the current card requires an unauthorized key.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class UnauthorizedKeyException final : public CardTransactionException {
 public:
     /**
      * @param message The message to identify the exception context
-     * @since 1.0
+     * @since 1.0.0
      */
     UnauthorizedKeyException(const std::string& message) : CardTransactionException(message) {}
 };

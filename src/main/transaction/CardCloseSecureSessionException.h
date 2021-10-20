@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -32,14 +31,14 @@ namespace transaction {
  * <p>In this case, the card has rollback the data set by cancelling all updates except for PIN
  * verification attempts.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CardCloseSecureSessionException final : public CardTransactionException {
 public:
     /**
      * @param message Message to identify the exception context.
      * @param cause The cause.
-     * @since 1.0
+     * @since 1.0.0
      */
     CardCloseSecureSessionException(const std::string& message, const std::exception& cause)
     : CardTransactionException(message, cause) {}

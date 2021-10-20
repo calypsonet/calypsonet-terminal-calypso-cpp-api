@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -33,7 +32,7 @@ using namespace calypsonet::terminal::reader::selection::spi;
  * filter SAM and define optional commands to be executed during the selection phase such as the
  * Unlock command.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CalypsoSamSelection : public CardSelection {
 public:
@@ -45,7 +44,7 @@ public:
      * @param productType The SAM product type.
      * @return The object instance.
      * @throw IllegalArgumentException If productType is null.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoSamSelection& filterByProductType(const CalypsoSam::ProductType productType) = 0;
 
@@ -69,7 +68,7 @@ public:
      * @param serialNumberRegex A regular expression.
      * @return The object instance.
      * @throw IllegalArgumentException If samSerialNumberRegex is null, empty or invalid.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoSamSelection& filterBySerialNumber(const std::string& serialNumberRegex) = 0;
 
@@ -81,7 +80,7 @@ public:
      * @param unlockData A hexadecimal representation of the 16 or 32 digit long unlock value.
      * @return The object instance.
      * @throws IllegalArgumentException If unlockData is null, malformed or out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoSamSelection& setUnlockData(const std::string& unlockData) = 0;
 };

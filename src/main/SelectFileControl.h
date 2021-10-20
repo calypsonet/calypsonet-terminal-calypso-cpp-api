@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -23,27 +22,27 @@ namespace calypso {
  * Enumeration of all expected behaviors of the selection command (see the specifics of this command
  * in the ISO7816-4 standard and the Calypso specification).
  *
- * @since 1.0
+ * @since 1.0.0
  */
 enum class SelectFileControl {
     /**
      * The first EF of the current Calypso DF
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     FIRST_EF,
 
     /**
      * The next EF of the current Calypso DF
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     NEXT_EF,
 
     /**
      * The Calypso DF
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     CURRENT_DF
 };

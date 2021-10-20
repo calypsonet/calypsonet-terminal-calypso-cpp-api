@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -25,7 +24,7 @@ namespace card {
 /**
  * Calypso EF content.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class FileData {
 public:
@@ -35,7 +34,7 @@ public:
      *
      * @return a not empty reference to the record content.
      * @throw NoSuchElementException if record #1 is not set.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getContent() const = 0;
 
@@ -45,7 +44,7 @@ public:
      * @param numRecord The record number.
      * @return a not empty reference to the record content.
      * @throw NoSuchElementException if record #numRecord is not set.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getContent(const int numRecord) const = 0;
 
@@ -60,7 +59,7 @@ public:
      * @throw NoSuchElementException if record #numRecord is not set.
      * @throw IndexOutOfBoundsException if dataOffset {@code >=} content length or (dataOffset +
      *        dataLength) {@code >} content length.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getContent(const int numRecord,
                                                    const int dataOffset,
@@ -70,7 +69,7 @@ public:
      * Gets a reference to all known records content.
      *
      * @return a not null map eventually empty if there's no content.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::map<const int, const std::vector<uint8_t>>& getAllRecordsContent() const = 0;
 
@@ -86,7 +85,7 @@ public:
      * @throw NoSuchElementException if record #1 or numCounter is not set.
      * @throw IndexOutOfBoundsException if numCounter has a truncated value (when size of record #1
      *        modulo 3 != 0).
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual int getContentAsCounterValue(const int numCounter) = 0;
 
@@ -98,7 +97,7 @@ public:
      *
      * @return a not empty object.
      * @throw NoSuchElementException if record #1 is not set.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual const std::map<const int, const int> getAllCountersValue() const = 0;
 };

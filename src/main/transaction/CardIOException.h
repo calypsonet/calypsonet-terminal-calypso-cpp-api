@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -26,13 +25,13 @@ namespace transaction {
 /**
  * Indicates a communication error with the card.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CardIOException final : public CardTransactionException {
 public:
     /**
      * @param message The message to identify the exception context
-     * @since 1.0
+     * @since 1.0.0
      */
     CardIOException(const std::string& message) : CardTransactionException(message) {}
 
@@ -41,7 +40,7 @@ public:
      *
      * @param message Message to identify the exception context.
      * @param cause The cause.
-     * @since 1.0
+     * @since 1.0.0
      */
     CardIOException(const std::string& message, const std::exception& cause)
     : CardTransactionException(message, cause) {}

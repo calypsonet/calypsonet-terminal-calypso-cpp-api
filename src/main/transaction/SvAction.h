@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -21,14 +20,14 @@ namespace transaction {
 /**
  * Defines the type Stored Value of action.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 enum class SvAction {
     /**
      * In the case of a {@link SvOperation#RELOAD}, loads a positive amount; in the case of a {@link
      * SvOperation#DEBIT}, debits a positive amount
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     DO,
 
@@ -36,7 +35,7 @@ enum class SvAction {
      * In the case of a {@link SvOperation#RELOAD}, loads a negative amount; in the case of a {@link
      * SvOperation#DEBIT}, cancels, totally or partially, a previous debit.
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     UNDO
 };

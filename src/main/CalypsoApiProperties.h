@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -22,14 +21,14 @@ namespace calypso {
 /**
  * API properties
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CalypsoApiProperties final {
 public:
     /**
      * API version: {@value}
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     static const std::string VERSION;
 

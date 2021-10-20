@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -37,7 +36,7 @@ using namespace calypsonet::terminal::reader;
  * <p>Fluent setters allow to define all the required parameters, among which the resource profile
  * of the SAM card is the only mandatory one.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CardSecuritySetting {
 public:
@@ -51,7 +50,7 @@ public:
      * @throw IllegalArgumentException If one of the arguments is null or if the product type of
      *        calypsonet::terminal::calypso::sam::CalypsoSam is equal to
      *        calypsonet::terminal::calypso::sam::CalypsoSam::ProductType::UNKNOWN.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& setSamResource(const std::shared_ptr<CardReader> samReader,
                                                 const std::shared_ptr<CalypsoSam> calypsoSam) = 0;
@@ -61,7 +60,7 @@ public:
      * handle.
      *
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& enableMultipleSession() = 0;
 
@@ -70,7 +69,7 @@ public:
      * terminal from receiving the acknowledgement of the session closing.
      *
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& enableRatificationMechanism() = 0;
 
@@ -78,7 +77,7 @@ public:
      * Enables the PIN transmission in plain text.
      *
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& enablePinPlainTransmission() = 0;
 
@@ -86,7 +85,7 @@ public:
      * Enables the collection of transaction data for a later security audit.
      *
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& enableTransactionAudit() = 0;
 
@@ -96,7 +95,7 @@ public:
      * <p>The default value is false.
      *
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& enableSvLoadAndDebitLog() = 0;
 
@@ -106,7 +105,7 @@ public:
      * <p>The default value is false.
      *
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& authorizeSvNegativeBalance() = 0;
 
@@ -118,7 +117,7 @@ public:
      * @param kif The KIF value to use.
      * @return The current instance.
      * @throw IllegalArgumentException If the provided writeAccessLevel is null.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& assignKif(const WriteAccessLevel writeAccessLevel,
                                            const uint8_t kvc,
@@ -132,7 +131,7 @@ public:
      * @param kif The KIF value to use.
      * @return The current instance.
      * @throw IllegalArgumentException If the provided writeAccessLevel is null.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& assignDefaultKif(const WriteAccessLevel writeAccessLevel,
                                                   const uint8_t kif) = 0;
@@ -144,7 +143,7 @@ public:
      * @param kvc The KVC to use.
      * @return The current instance.
      * @throw IllegalArgumentException If the provided writeAccessLevel is null.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& assignDefaultKvc(const WriteAccessLevel writeAccessLevel,
                                                   const uint8_t kvc) = 0;
@@ -158,7 +157,7 @@ public:
      * @param kif The KIF value.
      * @param kvc The KVC value.
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& addAuthorizedSessionKey(const uint8_t kif, const uint8_t kvc) = 0;
 
@@ -171,7 +170,7 @@ public:
      * @param kif The KIF value.
      * @param kvc The KVC value.
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& addAuthorizedSvKey(const uint8_t kif, const uint8_t kvc) = 0;
 
@@ -183,7 +182,7 @@ public:
      * @param kif The KIF value.
      * @param kvc The KVC value.
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& setPinVerificationCipheringKey(const uint8_t kif, 
                                                                 const uint8_t kvc) = 0;
@@ -196,7 +195,7 @@ public:
      * @param kif The KIF value.
      * @param kvc The KVC value.
      * @return The current instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CardSecuritySetting& setPinModificationCipheringKey(const uint8_t kif, 
                                                                 const uint8_t kvc) = 0;

@@ -1,6 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association                                                *
- * https://www.calypsonet-asso.org/                                                               *
+ * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -37,7 +36,7 @@ using namespace calypsonet::terminal::reader::selection::spi;
  * Card specific CardSelection providing means to filter cards, select applications and
  * define optional commands to be executed during the selection phase.
  *
- * @since 1.0
+ * @since 1.0.0
  */
 class CalypsoCardSelection final : public CardSelection {
 public:
@@ -45,34 +44,34 @@ public:
      * Navigation options through the different applications contained in the card according to the
      * ISO7816-4 standard.
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     enum class FileOccurrence {
         /**
          * First occurrence.
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         FIRST,
 
         /**
          * Last occurrence.
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         LAST,
 
         /**
          * Next occurrence.
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         NEXT,
 
         /**
          * Previous occurrence.
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         PREVIOUS
     };
@@ -81,20 +80,20 @@ public:
      * Types of templates available in return for the Select Application command, according to the
      * ISO7816-4 standard.
      *
-     * @since 1.0
+     * @since 1.0.0
      */
     enum class FileControlInformation {
         /**
          * File control information.
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         FCI,
 
         /**
          * No response expected.
          *
-         * @since 1.0
+         * @since 1.0.0
          */
         NO_RESPONSE
     };
@@ -107,7 +106,7 @@ public:
      * @param cardProtocol A not empty String.
      * @return The object instance.
      * @throw IllegalArgumentException If the argument is null or empty.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& filterByCardProtocol(const std::string& cardProtocol) = 0;
 
@@ -121,7 +120,7 @@ public:
      * @param powerOnDataRegex A valid regular expression.
      * @return The object instance.
      * @throw IllegalArgumentException If the provided regular expression is null, empty or invalid.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& filterByPowerOnData(const std::string& powerOnDataRegex) = 0;
 
@@ -134,7 +133,7 @@ public:
      * @param aid A byte array containing 5 to 16 bytes.
      * @return The object instance.
      * @throw IllegalArgumentException If the provided array is null or out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& filterByDfName(const std::vector<uint8_t>& aid) = 0;
 
@@ -148,7 +147,7 @@ public:
      * @param aid A hexadecimal string representation of 5 to 16 bytes.
      * @return The object instance.
      * @throw IllegalArgumentException If the provided AID is null, invalid or out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& filterByDfName(const std::string& aid) = 0;
 
@@ -160,7 +159,7 @@ public:
      * @param fileOccurrence The {@link CalypsoCardSelection.FileOccurrence}.
      * @return The object instance.
      * @throws IllegalArgumentException If fileOccurrence is null.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& setFileOccurrence(const FileOccurrence fileOccurrence) = 0;
 
@@ -172,7 +171,7 @@ public:
      * @param fileControlInformation The {@link CalypsoCardSelection.FileControlInformation}.
      * @return The object instance.
      * @throws IllegalArgumentException If fileControlInformation is null.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& setFileControlInformation(
         const FileControlInformation fileControlInformation) = 0;
@@ -185,7 +184,7 @@ public:
      *
      * @param statusWord A positive int &le; {@code FFFFh}.
      * @return The object instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& addSuccessfulStatusWord(const int statusWord) = 0;
 
@@ -195,7 +194,7 @@ public:
      * <p>Invalidated cards are rejected by default.
      *
      * @return The object instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& acceptInvalidatedCard() = 0;
 
@@ -205,7 +204,7 @@ public:
      * @param lid LID of the EF to select as a byte array
      * @return The object instance.
      * @throw IllegalArgumentException If the argument is not an array of 2 bytes.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& prepareSelectFile(const std::vector<uint8_t>& lid) = 0;
 
@@ -214,7 +213,7 @@ public:
      *
      * @param lid A short.
      * @return The object instance.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& prepareSelectFile(const uint16_t lid) = 0;
 
@@ -225,7 +224,7 @@ public:
      * @param selectControl A SelectFileControl enum entry.
      * @return The object instance.
      * @throw IllegalArgumentException If the argument is null.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& prepareSelectFile(const SelectFileControl selectControl) = 0;
 
@@ -236,7 +235,7 @@ public:
      * @param recordNumber The record number to read.
      * @return The object instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& prepareReadRecordFile(const uint8_t sfi, const int recordNumber)
         = 0;
@@ -252,7 +251,7 @@ public:
      * @throw IllegalArgumentException If tag is null.
      * @throw UnsupportedOperationException If the Get Data command with the provided tag is not
      *        supported.
-     * @since 1.0
+     * @since 1.0.0
      */
     virtual CalypsoCardSelection& prepareGetData(const GetDataTag tag) = 0;
 };
