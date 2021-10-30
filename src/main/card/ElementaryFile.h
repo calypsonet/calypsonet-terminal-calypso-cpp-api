@@ -17,12 +17,13 @@
 
 /* Calypsonet Terminal Calypso */
 #include "FileData.h"
-#include "FileHeader.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace card {
+
+class FileHeader;
 
 /**
  * Calypso Elementary File.

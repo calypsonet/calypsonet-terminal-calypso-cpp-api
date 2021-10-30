@@ -57,7 +57,7 @@ using namespace calypsonet::terminal::reader::selection::spi;
  *
  * @since 1.0.0
  */
-class CalypsoCard final : public SmartCard {
+class CalypsoCard : public SmartCard {
 public:
     /**
      * All Calypso Card products supported by this API.
@@ -163,7 +163,7 @@ public:
      * @return The platform identification byte.
      * @since 1.0.0
      */
-    virtual uint8_t getPlatform() const = 0;;
+    virtual uint8_t getPlatform() const = 0;
 
     /**
      * Gets the Application Type byte which determines the Calypso product type and various options.
@@ -274,7 +274,7 @@ public:
      * @return True if the card has been invalidated.
      * @since 1.0.0
      */
-    virtual bool isDfInvalidated() const = 0;;
+    virtual bool isDfInvalidated() const = 0;
 
     /**
      * Tells if the last session with this card has been ratified or not.

@@ -19,6 +19,10 @@
 /* Calypsonet Terminal Calypso */
 #include "CalypsoCard.h"
 #include "CardSecuritySetting.h"
+#include "GetDataTag.h"
+#include "SelectFileControl.h"
+#include "SvAction.h"
+#include "SvOperation.h"
 
 /* Calypsonet Terminal Reader */
 #include "CardReader.h"
@@ -31,7 +35,9 @@ namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace calypsonet::terminal::calypso;
 using namespace calypsonet::terminal::calypso::card;
+using namespace calypsonet::terminal::calypso::transaction;
 using namespace calypsonet::terminal::reader;
 
 /**
@@ -123,7 +129,7 @@ public:
      * @throw IllegalArgumentException If selectFileControl is null.
      * @since 1.0.0
      */
-    virtual CardTransactionManager& prepareSelectFile(const electFileControl selectFileControl) = 0;
+    virtual CardTransactionManager& prepareSelectFile(const SelectFileControl selectFileControl) = 0;
 
     /**
      * Adds a command APDU to retrieve the data indicated by the provided tag.
@@ -210,7 +216,7 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareReadCounterFile(const uint8_t sfi,
-                                                           const int countersNumber) = 0
+                                                           const int countersNumber) = 0;
 
     /**
      * Schedules the execution of a <b>Verify Pin</b> command without PIN presentation in order to
@@ -245,7 +251,7 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareAppendRecord(const uint8_t sfi,
-                                                        const std::vector<uin8_t>& recordData) = 0;
+                                                        const std::vector<uint8_t>& recordData) = 0;
 
     /**
      * Schedules the execution of a <b>Update Record</b> command to overwrites the target file's

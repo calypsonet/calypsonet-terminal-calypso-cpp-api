@@ -1,4 +1,4 @@
-# Calypsonet Terminal Calypso C+ API
+# Calypsonet Terminal Calypso C++ API
 
 This is the repository for the **Calypso Networks Association**'s reference **Terminal Calypso API** for C++.
 
