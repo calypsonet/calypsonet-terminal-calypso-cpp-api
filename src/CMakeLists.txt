@@ -12,4 +12,4 @@
 # *************************************************************************************************/
 
 # Add projects
-ADD_SUBDIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/test)
+#ADD_SUBDIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/test)
