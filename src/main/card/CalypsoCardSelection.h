@@ -192,6 +192,7 @@ public:
      * @param statusWord A positive int &le; {@code FFFFh}.
      * @return The object instance.
      * @since 1.0.0
+     * @deprecated Use acceptInvalidatedCard() method instead.
      */
     virtual CalypsoCardSelection& addSuccessfulStatusWord(const int statusWord) = 0;
 
