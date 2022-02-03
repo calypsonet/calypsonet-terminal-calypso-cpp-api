@@ -265,9 +265,29 @@ public:
      * @return The object instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.0.0
+     * @deprecated Use prepareReadRecord(const uint8_t, const int) method instead.
      */
     virtual CalypsoCardSelection& prepareReadRecordFile(const uint8_t sfi, const int recordNumber)
         = 0;
+
+    /**
+     * Adds a command APDU to read a single record from the indicated EF.
+     *
+     * <p>Once this command is processed, the result is available in {@link CalypsoCard} if the
+     * requested file and record exist in the file structure of the card (best effort behavior).
+     *
+     * <p>Caution: the resulting APDU command must be compliant with PRIME revision 3 cards.
+     * Therefore, the command may be rejected by some earlier revision cards.
+     *
+     * @param sfi The SFI of the EF to read
+     * @param recordNumber The record number to read.
+     * @return The object instance.
+     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @since 1.1.0
+     */
+    virtual CalypsoCardSelection& prepareReadRecord(const uint8_t sfi, const int recordNumber) = 0;
+
+
 
     /**
      * Adds a command APDU to retrieve the data indicated by the provided tag.

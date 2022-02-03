@@ -177,6 +177,7 @@ public:
      * @throws IllegalStateException If this method is invoked inside a secure session in contact
      *         mode.
      * @since 1.0.0
+     * @deprecated Use prepareReadRecord(const uint8_t, const int) method instead.
      */
     virtual CardTransactionManager& prepareReadRecordFile(const uint8_t sfi, const int recordNumber)
         = 0;
@@ -210,6 +211,7 @@ public:
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.0.0
+     * @deprecated Use prepareReadRecord(const uint8_t, const int) method instead.
      */
     virtual CardTransactionManager& prepareReadRecordFile(const uint8_t sfi,
                                                           const int firstRecordNumber,
@@ -245,9 +247,144 @@ public:
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.0.0
+     * @deprecated Use prepareReadCounter(const uint8_t, const int) method instead.
      */
     virtual CardTransactionManager& prepareReadCounterFile(const uint8_t sfi,
                                                            const int countersNumber) = 0;
+
+    /**
+     * Schedules the execution of a <b>Read Records</b> command to read a single record from the
+     * indicated EF.
+     *
+     * <p>Once this command is processed, the result is available in CalypsoCard.
+     *
+     * <p>Depending on whether we are inside a secure session, there are two types of behavior
+     * following this command:
+     *
+     * <ul>
+     *   <li>Outside a secure session (best effort mode): the following "process" command will not
+     *       fail whatever the existence of the targeted file or record (the CalypsoCard
+     *       object may not be filled).
+     *   <li>Inside a secure session in contactless mode (strict mode): the following "process"
+     *       command will fail if the targeted file or record does not exist (the CalypsoCard
+     *       object is always filled or an exception is raised when the reading failed).
+     * </ul>
+     *
+     * <p><b>This method should not be used inside a secure session in contact mode</b> because
+     * additional exchanges with the card will be operated and will corrupt the security of the
+     * session. Instead, use the method
+     * prepareReadRecordFile(const uint8_t, const int, const int, const int) for this case and
+     * provide valid parameters.
+     *
+     * @param sfi The SFI of the EF to read.
+     * @param recordNumber The record number to read.
+     * @return The current instance.
+     * @throws IllegalArgumentException If one of the provided arguments is out of range.
+     * @throws IllegalStateException If this method is invoked inside a secure session in contact
+     *     mode.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareReadRecord(const uint8_t sfi, const int recordNumber)
+        = 0;
+
+    /**
+     * Schedules the execution of a <b>Read Records</b> command to read one or more records from the
+     * indicated EF.
+     *
+     * <p>Once this command is processed, the result is available in CalypsoCard.
+     *
+     * <p>Depending on whether we are inside a secure session, there are two types of behavior
+     * following this command:
+     *
+     * <ul>
+     *   <li>Outside a secure session (best effort mode): the following "process" command will not
+     *       fail whatever the existence of the targeted file or record (the CalypsoCard
+     *       object may not be filled).
+     *   <li>Inside a secure session (strict mode): the following "process" command will fail if the
+     *       targeted file or record does not exist (the CalypsoCard object is always filled
+     *       or an exception is raised when the reading failed).<br>
+     *       Invalid parameters could lead to additional exchanges with the card and thus corrupt the
+     *       security of the session.
+     * </ul>
+     *
+     * @param sfi The SFI of the EF.
+     * @param firstRecordNumber The record number to read (or first record to read in case of several
+     *     records)
+     * @param nbRecordsToRead The number of records to read.
+     * @param recordSize The record length.
+     * @return The current instance.
+     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareReadRecord(const uint8_t sfi,
+                                                      const int firstRecordNumber,
+                                                      const int nbRecordsToRead,
+                                                      const int recordSize) = 0;
+
+    /**
+     * Schedules the execution of one or multiple <b>Read Binary</b> commands to read all or part of
+     * the indicated Binary EF.
+     *
+     * <p>Once this command is processed, the result is available in CalypsoCard.
+     *
+     * <p>Depending on whether we are inside a secure session, there are two types of behavior
+     * following this command:
+     *
+     * <ul>
+     *   <li>Outside a secure session (best effort mode): the following "process" command will not
+     *       fail whatever the existence of the targeted file or the validity of the offset and number
+     *       of bytes to read (the CalypsoCard object may not be filled).
+     *   <li>Inside a secure session (strict mode): the following "process" command will fail if the
+     *       targeted file does not exist or if the offset and number of bytes to read are not valid
+     *       (the CalypsoCard object is always filled or an exception is raised when the
+     *       reading failed).<br>
+     *       Invalid parameters could lead to additional exchanges with the card and thus corrupt the
+     *       security of the session.
+     * </ul>
+     *
+     * @param sfi The SFI of the EF.
+     * @param offset The offset.
+     * @param nbBytesToRead The number of bytes to read.
+     * @return The current instance.
+     * @throws UnsupportedOperationException If this command is not supported by this card.
+     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareReadBinary(const uint8_t sfi,
+                                                      const int offset,
+                                                      const int nbBytesToRead) = 0;
+
+    /**
+     * Schedules the execution of a <b>Read Records</b> command to reads a record of the indicated EF,
+     * which should be a counter file.
+     *
+     * <p>The record will be read up to the counter location indicated in parameter.<br>
+     * Thus, all previous counters will also be read.
+     *
+     * <p>Once this command is processed, the result is available in CalypsoCard.
+     *
+     * <p>Depending on whether we are inside a secure session, there are two types of behavior
+     * following this command:
+     *
+     * <ul>
+     *   <li>Outside a secure session (best effort mode): the following "process" command will not
+     *       fail whatever the existence of the targeted file or counter (the CalypsoCard
+     *       object may not be filled).
+     *   <li>Inside a secure session (strict mode): the following "process" command will fail if the
+     *       targeted file or counter does not exist (the CalypsoCard object is always filled
+     *       or an exception is raised when the reading failed).<br>
+     *       Invalid parameters could lead to additional exchanges with the card and thus corrupt the
+     *       security of the session.
+     * </ul>
+     *
+     * @param sfi The SFI of the EF.
+     * @param nbCountersToRead The number of counters to read.
+     * @return The current instance.
+     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareReadCounter(const uint8_t sfi,
+                                                       const int nbCountersToRead) = 0;
 
     /**
      * Schedules the execution of a <b>Verify Pin</b> command without PIN presentation in order to
@@ -336,7 +473,7 @@ public:
      *
      * <p>Note: CalypsoCard is filled with the provided input data.
      *
-     * @param sfi The SFI of the file to select or 0 for the current file.
+     * @param sfi The SFI of the EF to select or 0 for the current EF.
      * @param offset The offset.
      * @param data The new data.
      * @return The current instance.
@@ -357,7 +494,7 @@ public:
      *
      * <p>Note: CalypsoCard is computed with the provided input data.
      *
-     * @param sfi The SFI of the file to select or 0 for the current file.
+     * @param sfi The SFI of the EF to select or 0 for the current EF.
      * @param offset The offset.
      * @param data The data to write over the existing data.
      * @return The current instance.
@@ -375,9 +512,9 @@ public:
      * <p>Note: calypsonet::terminal::calypso::card::CalypsoCard is filled with the provided input
      * data.
      *
-     * @param counterNumber {@code >=} 01h: Counters file, number of the counter. 00h: Simulated.
+     * @param counterNumber {@code >=} 1: Counters file, number of the counter. 0: Simulated.
      *        Counter file.
-     * @param sfi SFI of the file to select or 00h for current EF.
+     * @param sfi SFI of the EF to select or 0 for current EF.
      * @param incValue Value to add to the counter (defined as a positive int {@code <=} 16777215
      *        [FFFFFFh])
      * @return The current instance.
@@ -394,9 +531,9 @@ public:
      * <p>Note: calypsonet::terminal::calypso::card::CalypsoCard is filled with the provided input
      * data.
      *
-     * @param counterNumber {@code >=} 01h: Counters file, number of the counter. 00h: Simulated.
+     * @param counterNumber {@code >=} 1: Counters file, number of the counter. 0: Simulated.
      *        Counter file.
-     * @param sfi SFI of the file to select or 00h for current EF.
+     * @param sfi SFI of the EF to select or 0 for current EF.
      * @param decValue Value to subtract to the counter (defined as a positive int {@code <=}
      *        16777215 [FFFFFFh])
      * @return The current instance.
@@ -427,9 +564,9 @@ public:
      *       determine the success of the operation..
      * </ul>
      *
-     * @param counterNumber {@code >=} 01h: Counters file, number of the counter. 00h: Simulated.
+     * @param counterNumber {@code >=} 1: Counters file, number of the counter. 0: Simulated.
      *        Counter file.
-     * @param sfi SFI of the file to select or 00h for current EF.
+     * @param sfi SFI of the EF to select or 0 for current EF.
      * @param newValue The desired value for the counter (defined as a positive int {@code <=}
      *        16777215 [FFFFFFh])
      * @return The current instance.
