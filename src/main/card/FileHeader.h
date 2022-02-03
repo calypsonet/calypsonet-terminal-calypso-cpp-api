@@ -33,7 +33,7 @@ public:
     /**
      * Gets the associated LID.
      *
-     * @return The LID
+     * @return The LID.
      * @since 1.0.0
      */
     virtual uint16_t getLid() const = 0;
@@ -41,10 +41,11 @@ public:
     /**
      * Gets the DF status.
      *
-     * @return The DF status byte
+     * @return Null if the status is not available (e.g. when the {@code FileHeader} is created
+     *         following the response to a "Get Data" command with the GetDataTag::EF_LIST tag).
      * @since 1.0.0
      */
-    virtual uint8_t getDfStatus() const = 0;
+    virtual std::shared_ptr<uint8_t> getDfStatus() const = 0;
 
     /**
      * Gets the Elementary File type.
@@ -85,7 +86,9 @@ public:
     /**
      * Gets a reference to the access conditions.
      *
-     * @return A not empty byte array reference.
+     * @return An empty array if the access conditions are not available (e.g. when the {@code
+     *         FileHeader} is created following the response to a "Get Data" command with the
+     *         GetDataTag::EF_LIST tag).
      * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getAccessConditions() const = 0;
@@ -93,15 +96,19 @@ public:
     /**
      * Gets a reference to the keys indexes.
      *
-     * @return A not empty byte array reference.
+     * @return An empty array if the key indexes are not available (e.g. when the {@code FileHeader}
+     *         is created following the response to a "Get Data" command with the
+     *         GetDataTag::EF_LIST tag).
      * @since 1.0.0
      */
     virtual const std::vector<uint8_t>& getKeyIndexes() = 0;
 
     /**
-     * Gets the shared reference of a shared file.
+     * Gets the non-zero unique identifier of the shared data when the file data is shared.
      *
-     * @return Null if file is not shared.
+     * @return Zero if the file data is not shared or null if the information is not available (e.g.
+     *         when the {@code FileHeader} is created following the response to a "Get Data" command
+     *         with the GetDataTag::EF_LIST tag).
      * @since 1.0.0
      */
     virtual const std::shared_ptr<uint16_t> getSharedReference() const = 0;

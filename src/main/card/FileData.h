@@ -78,13 +78,13 @@ public:
      * e.g. if numCounter == 2, then value is extracted from bytes indexes [3,4,5].
      *
      * @param numCounter The counter number (should be {@code >=} 1).
-     * @return The counter value or -1 if record #1 or numCounter is not set.
+     * @return The counter value or null if record #1 or numCounter is not set.
      * @throw IllegalArgumentException if numCounter is {@code <} 1.
      * @throw IndexOutOfBoundsException if numCounter has a truncated value (when size of record #1
      *        modulo 3 != 0).
      * @since 1.0.0
      */
-    virtual int getContentAsCounterValue(const int numCounter) = 0;
+    virtual std::shared_ptr<int> getContentAsCounterValue(const int numCounter) = 0;
 
     /**
      * Gets all known counters value.<br>

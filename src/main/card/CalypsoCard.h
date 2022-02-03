@@ -221,6 +221,16 @@ public:
     virtual uint8_t getSessionModification() const = 0;
 
     /**
+     * Gets the traceability information of the product.
+     *
+     * <p>The returned array contains the software issuer ID and the discretionary data.
+     *
+     * @return An empty array if the traceability information is not available.
+     * @since 1.1.0
+     */
+    virtual const std::vector<uint8_t> getTraceabilityInformation() const = 0;
+
+    /**
      * Gets the DF metadata.
      *
      * @return Null if is not set.
