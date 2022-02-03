@@ -235,8 +235,7 @@ public:
      * modifications, which can be canceled if the secure session fails.
      *
      * @param sfi The SFI to search.
-     * @return a not null reference.
-     * @throw NoSuchElementException if requested EF is not found.
+     * @return Null if the requested EF is not found.
      * @since 1.0.0
      */
     virtual const std::shared_ptr<ElementaryFile> getFileBySfi(const uint8_t sfi) const = 0;
@@ -248,8 +247,7 @@ public:
      * modifications, which can be canceled if the secure session fails.
      *
      * @param lid The LID to search.
-     * @return a not null reference.
-     * @throws NoSuchElementException if requested EF is not found.
+     * @return Null if the requested EF is not found.
      * @since 1.0.0
      */
     virtual const std::shared_ptr<ElementaryFile> getFileByLid(const uint16_t lid) const = 0;
