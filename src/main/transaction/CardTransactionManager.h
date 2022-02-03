@@ -329,6 +329,47 @@ public:
                                                        const std::vector<uint8_t> recordData) = 0;
 
     /**
+     * Schedules the execution of a <b>Update Binary</b> command to replace the indicated data of a
+     * Binary file with the new data given from the indicated offset.
+     *
+     * <p>The data of the file before the offset and after the data given are left unchanged.
+     *
+     * <p>Note: CalypsoCard is filled with the provided input data.
+     *
+     * @param sfi The SFI of the file to select or 0 for the current file.
+     * @param offset The offset.
+     * @param data The new data.
+     * @return The current instance.
+     * @throws UnsupportedOperationException If this command is not supported by this card.
+     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareUpdateBinary(const uint8_t sfi,
+                                                        const int offset,
+                                                        const std::vector<uint8_t>& data) = 0;
+
+    /**
+     * Schedules the execution of a <b>Write Binary</b> command to write over the indicated data of a
+     * Binary file. The new data will be the result of a binary OR operation between the existing data
+     * and the data given in the command from the indicated offset.
+     *
+     * <p>The data of the file before the offset and after the data given are left unchanged.
+     *
+     * <p>Note: CalypsoCard is computed with the provided input data.
+     *
+     * @param sfi The SFI of the file to select or 0 for the current file.
+     * @param offset The offset.
+     * @param data The data to write over the existing data.
+     * @return The current instance.
+     * @throws UnsupportedOperationException If this command is not supported by this card.
+     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareWriteBinary(const uint8_t sfi,
+                                                       const int offset,
+                                                       const std::vector<uint8_t>&  data) = 0;
+
+    /**
      * Schedules the execution of a <b>Increase command</b> command to increase the target counter.
      *
      * <p>Note: calypsonet::terminal::calypso::card::CalypsoCard is filled with the provided input

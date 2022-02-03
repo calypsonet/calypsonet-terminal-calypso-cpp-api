@@ -39,7 +39,7 @@ private:
     CalypsoApiProperties() {}
 };
 
-const std::string CalypsoApiProperties::VERSION = "1.0";
+const std::string CalypsoApiProperties::VERSION = "1.1";
 
 }
 }
