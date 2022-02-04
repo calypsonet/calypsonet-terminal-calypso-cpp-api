@@ -18,7 +18,6 @@
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
-namespace transaction {
 
 /**
  * Contains the input/output data of a "Search Record Multiple" card command.
@@ -114,7 +113,6 @@ public:
     virtual const std::vector<int> getMatchingRecordNumbers() = 0;
 };
 
-}
 }
 }
 }

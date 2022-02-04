@@ -23,6 +23,7 @@
 /* Calypsonet Terminal Calypso */
 #include "CalypsoCardSelection.h"
 #include "GetDataTag.h"
+#include "SearchCommandData.h"
 #include "SelectFileControl.h"
 
 namespace calypsonet {
@@ -46,6 +47,18 @@ using namespace calypsonet::terminal::reader::selection::spi;
  *
  * <p>Note 2: the APDU commands resulting from the invocation of the "prepare" methods shall be
  * compliant with the PRIME revision 3 cards.
+ *
+ * <p>For all "prepare" type commands, unless otherwise specified, here are the ranges of values
+ * checked for the various parameters:
+ *
+ * <ul>
+ *   <li>SFI: [0..31] (0 indicates the current EF)
+ *   <li>Record number: [1..255]
+ *   <li>Counter number: [1..255]
+ *   <li>Counter value: [0..16777215]
+ *   <li>Offset: [0..255] or [0..32767] for binary files
+ *   <li>Input data length: [1..255] or [1..32767] for binary files
+ * </ul>
  *
  * @since 1.0.0
  */
@@ -297,9 +310,8 @@ public:
      * structure of the card (best effort behavior).
      *
      * @param sfi The SFI of the EF.
-     * @param firstRecordNumber The record to read (or first record to read in case of several
-     *        records).
-     * @param nbRecordsToRead The number of records to read.
+     * @param fromRecordNumber The number of the first record to read.
+     * @param toRecordNumber The number of the last record to read.
      * @param offset The offset in the records where to start reading.
      * @param nbBytesToRead The number of bytes to read from each record.
      * @return The current instance.
@@ -307,8 +319,8 @@ public:
      * @since 1.1.0
      */
     virtual CalypsoCardSelection& prepareReadRecordMultiple(const uint8_t sfi,
-                                                            const int firstRecordNumber,
-                                                            const int nbRecordsToRead,
+                                                            const int fromRecordNumber,
+                                                            const int toRecordNumber,
                                                             const int offset,
                                                             const int nbBytesToRead) = 0;
 
