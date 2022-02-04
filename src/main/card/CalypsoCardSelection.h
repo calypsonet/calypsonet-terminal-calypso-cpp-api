@@ -23,7 +23,6 @@
 /* Calypsonet Terminal Calypso */
 #include "CalypsoCardSelection.h"
 #include "GetDataTag.h"
-#include "SearchCommandData.h"
 #include "SelectFileControl.h"
 
 namespace calypsonet {
@@ -52,12 +51,12 @@ using namespace calypsonet::terminal::reader::selection::spi;
  * checked for the various parameters:
  *
  * <ul>
- *   <li>SFI: [0..31] (0 indicates the current EF)
- *   <li>Record number: [1..255]
- *   <li>Counter number: [1..255]
+ *   <li>SFI: [0..30] (0 indicates the current EF)
+ *   <li>Record number: [1..250]
+ *   <li>Counter number: [1..83]
  *   <li>Counter value: [0..16777215]
- *   <li>Offset: [0..255] or [0..32767] for binary files
- *   <li>Input data length: [1..255] or [1..32767] for binary files
+ *   <li>Offset: [0..249] or [0..32767] for binary files (0 indicates the first byte)
+ *   <li>Input data length: [1..250] or [1..32767] for binary files
  * </ul>
  *
  * @since 1.0.0
@@ -235,15 +234,17 @@ public:
      * @return The object instance.
      * @throw IllegalArgumentException If the argument is not an array of 2 bytes.
      * @since 1.0.0
+     * @deprecated Use prepareSelectFile(short) method instead.
      */
     virtual CalypsoCardSelection& prepareSelectFile(const std::vector<uint8_t>& lid) = 0;
 
     /**
-     * Adds a command APDU to select file with an LID provided as a short.
+     * Adds a command APDU to select an EF by its LID in the current DF.
      *
-     * <p>Caution: the resulting APDU command must be compliant with PRIME revision 3 cards.
+     * <p>Caution 1: the resulting APDU command must be compliant with PRIME revision 3 cards.
      * Therefore, the command may be rejected by some earlier revision cards.
      *
+     * <p>Caution 2: the command will fail if the selected file is not an EF.
      *
      * @param lid A short.
      * @return The object instance.
@@ -300,56 +301,6 @@ public:
      * @since 1.1.0
      */
     virtual CalypsoCardSelection& prepareReadRecord(const uint8_t sfi, const int recordNumber) = 0;
-
-    /**
-     * Schedules the execution of one or multiple <b>Read Record Multiple</b> commands to read all or
-     * parts of multiple records of the indicated EF.
-     *
-     * <p>Once this command is processed, the result is available in CalypsoCard if the
-     * command is supported by the card and if the requested file and record exist in the file
-     * structure of the card (best effort behavior).
-     *
-     * @param sfi The SFI of the EF.
-     * @param fromRecordNumber The number of the first record to read.
-     * @param toRecordNumber The number of the last record to read.
-     * @param offset The offset in the records where to start reading.
-     * @param nbBytesToRead The number of bytes to read from each record.
-     * @return The current instance.
-     * @throws IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.1.0
-     */
-    virtual CalypsoCardSelection& prepareReadRecordMultiple(const uint8_t sfi,
-                                                            const int fromRecordNumber,
-                                                            const int toRecordNumber,
-                                                            const int offset,
-                                                            const int nbBytesToRead) = 0;
-
-    /**
-     * Schedules the execution of a <b>Search Record Multiple</b> command to search data in the
-     * records of the indicated EF, from a given record to the last record of the file. It will
-     * return the list of record numbers containing these data, and if requested it will read the
-     * first record content.
-     *
-     * <p>The command is only possible with a Linear, Cyclic, Counters or Simulated Counter EF.
-     *
-     * <p>The command searches if the given data are present in the records of the file. During the
-     * search, an optional mask is applied. The mask allows to specify precisely the bits to be
-     * taken into account in the comparison.
-     *
-     * <p>See SearchCommandData class for a description of the parameters.
-     *
-     * <p>Once this command is processed, the result is available in the provided input/output
-     * SearchCommandData object, and the content of the first matching record in CalypsoCard
-     * if requested, if the command is supported by the card and if the requested file, record and
-     * offset exist in the file structure of the card (best effort behavior).
-     *
-     * @param data The input/output data containing the parameters of the command.
-     * @return The current instance.
-     * @throws IllegalArgumentException If the input data is inconsistent.
-     * @since 1.1.0
-     */
-    virtual CalypsoCardSelection& prepareSearchRecordMultiple(
-        const std::shared_ptr<SearchCommandData> data);
 
     /**
      * Adds a command APDU to retrieve the data indicated by the provided tag.

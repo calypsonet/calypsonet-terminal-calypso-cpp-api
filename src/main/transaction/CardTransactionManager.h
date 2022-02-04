@@ -67,12 +67,12 @@ using namespace calypsonet::terminal::reader;
  * checked for the various parameters:
  *
  * <ul>
- *   <li>SFI: [0..31] (0 indicates the current EF)
- *   <li>Record number: [1..255]
- *   <li>Counter number: [1..255]
+ *   <li>SFI: [0..30] (0 indicates the current EF)
+ *   <li>Record number: [1..250]
+ *   <li>Counter number: [1..83]
  *   <li>Counter value: [0..16777215]
- *   <li>Offset: [0..255] or [0..32767] for binary files
- *   <li>Input data length: [1..255] or [1..32767] for binary files
+ *   <li>Offset: [0..249] or [0..32767] for binary files (0 indicates the first byte)
+ *   <li>Input data length: [1..250] or [1..32767] for binary files
  * </ul>
  *
  * @since 1.0.0
@@ -118,15 +118,32 @@ public:
      *
      * <p>Once this command is processed, the result is available in
      * calypsonet::terminal::calypso::card::CalypsoCard through the
-     * calypsonet::terminal::calypso::card::CalypsoCard::getFileBySfi() and
-     * calypsonet::terminal::calypso::card::ElementaryFile::getHeader() methods.
+     * CalypsoCard#getFileBySfi(byte)/CalypsoCard#getFileByLid(short) and
+     * ElementaryFile::getHeader() methods.
      *
      * @param lid The LID of the EF to select.
      * @return The current instance.
      * @throw IllegalArgumentException If the provided lid is not 2 bytes long.
      * @since 1.0.0
+     * @deprecated Use prepareSelectFile(uint16_t) method instead.
      */
     virtual CardTransactionManager& prepareSelectFile(const std::vector<uint8_t>& lid) = 0;
+
+    /**
+     * Schedules the execution of a <b>Select File</b> command to select an EF by its LID in the
+     * current DF
+     *
+     * <p>Once this command is processed, the result is available in CalypsoCard through the
+     * CalypsoCard::getFileBySfi(byte)/CalypsoCard#getFileByLid(short) and
+     * ElementaryFile#getHeader() methods.
+     *
+     * <p>Caution: the command will fail if the selected file is not an EF.
+     *
+     * @param lid The LID of the EF to select.
+     * @return The current instance.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareSelectFile(const uint16_t lid) = 0;
 
     /**
      * Schedules the execution of a <b>Select File</b> command using a navigation selectFileControl
@@ -134,8 +151,7 @@ public:
      *
      * <p>Once this command is processed, the result is available in
      * calypsonet::terminal::calypso::card::CalypsoCard through the
-     * calypsonet::terminal::calypso::card::CalypsoCard::getFileBySfi() and
-     * calypsonet::terminal::calypso::card::ElementaryFile::getHeader() methods.
+     * ElementaryFile#getHeader() methods.
      *
      * @param selectFileControl A calypsonet::terminal::calypso::card::SelectFileControl enum entry.
      * @return The current instance.
@@ -358,14 +374,14 @@ public:
      * @param sfi The SFI of the EF.
      * @param fromRecordNumber The number of the first record to read.
      * @param toRecordNumber The number of the last record to read.
-     * @param offset The offset in the records where to start reading.
+     * @param offset The offset in the records where to start reading (0 indicates the first byte).
      * @param nbBytesToRead The number of bytes to read from each record.
      * @return The current instance.
      * @throws UnsupportedOperationException If this command is not supported by this card.
      * @throws IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.1.0
      */
-    virtual CardTransactionManager& prepareReadRecordMultiple(const uint8_t sfi,
+    virtual CardTransactionManager& prepareReadPartialRecords(const uint8_t sfi,
                                                               const int fromRecordNumber,
                                                               const int toRecordNumber,
                                                               const int offset,
@@ -393,7 +409,7 @@ public:
      * </ul>
      *
      * @param sfi The SFI of the EF.
-     * @param offset The offset.
+     * @param offset The offset (0 indicates the first byte).
      * @param nbBytesToRead The number of bytes to read.
      * @return The current instance.
      * @throws UnsupportedOperationException If this command is not supported by this card.
@@ -472,7 +488,7 @@ public:
      * @throws IllegalArgumentException If the input data is inconsistent.
      * @since 1.1.0
      */
-    virtual CardTransactionManager& prepareSearchRecordMultiple(
+    virtual CardTransactionManager& prepareSearchRecords(
         const std::shared_ptr<SearchCommandData> data);
 
     /**
@@ -564,7 +580,7 @@ public:
      * <p>Note: CalypsoCard is filled with the provided input data.
      *
      * @param sfi The SFI of the EF to select.
-     * @param offset The offset.
+     * @param offset The offset (0 indicates the first byte).
      * @param data The new data.
      * @return The current instance.
      * @throws UnsupportedOperationException If this command is not supported by this card.
@@ -585,7 +601,7 @@ public:
      * <p>Note: CalypsoCard is computed with the provided input data.
      *
      * @param sfi The SFI of the EF to select.
-     * @param offset The offset.
+     * @param offset The offset (0 indicates the first byte).
      * @param data The data to write over the existing data.
      * @return The current instance.
      * @throws UnsupportedOperationException If this command is not supported by this card.

@@ -231,7 +231,7 @@ public:
     virtual const std::vector<uint8_t> getTraceabilityInformation() const = 0;
 
     /**
-     * Gets the DF metadata.
+     * Returns the metadata of the current DF.
      *
      * @return Null if is not set.
      * @since 1.0.0
@@ -239,19 +239,19 @@ public:
     virtual const std::shared_ptr<DirectoryHeader> getDirectoryHeader() const = 0;
 
     /**
-     * Gets a reference to the {@link ElementaryFile} that has the provided SFI value.
+     * Returns a reference to the ElementaryFile that has the provided SFI.
      *
      * <p>Note that if a secure session is actually running, then the object contains all session
      * modifications, which can be canceled if the secure session fails.
      *
      * @param sfi The SFI to search.
-     * @return Null if the requested EF is not found.
+     * @return Null if the requested EF is not found or if the SFI is equal to 0.
      * @since 1.0.0
      */
     virtual const std::shared_ptr<ElementaryFile> getFileBySfi(const uint8_t sfi) const = 0;
 
     /**
-     * Gets a reference to the {@link ElementaryFile} that has the provided LID value.
+     * Returns a reference to the ElementaryFile that has the provided LID value.
      *
      * <p>Note that if a secure session is actually running, then the object contains all session
      * modifications, which can be canceled if the secure session fails.
@@ -263,15 +263,27 @@ public:
     virtual const std::shared_ptr<ElementaryFile> getFileByLid(const uint16_t lid) const = 0;
 
     /**
-     * Gets a reference to a map of all known Elementary Files by their associated SFI.
+     * Returns a reference to a map of all known Elementary Files by their associated SFI.
      *
      * <p>Note that if a secure session is actually running, then the map contains all session
      * modifications, which can be canceled if the secure session fails.
      *
      * @return A not null reference (may be empty if no one EF is set).
      * @since 1.0.0
+     * @deprecated Since an EF may not have an SFI, the getFiles() method must be used instead.
      */
     virtual const std::map<uint8_t, const std::shared_ptr<ElementaryFile>> getAllFiles() const = 0;
+
+    /**
+     * Returns a reference to the set of all known Elementary Files contains inside the current DF.
+     *
+     * <p>Note that if a secure session is actually running, then the set contains all session
+     * modifications, which can be canceled if the secure session fails.
+     *
+     * @return A not null reference (may be empty if no one EF is set).
+     * @since 1.1.0
+     */
+    virtual const std::vector<std::shared_ptr<ElementaryFile>> getFiles();
 
     /**
      * Tells if the current DF is  invalidated or not.
