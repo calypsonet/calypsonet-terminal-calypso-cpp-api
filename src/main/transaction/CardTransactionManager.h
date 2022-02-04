@@ -643,16 +643,17 @@ public:
      * IllegalStateException will be raised during the execution of #processClosing().
      *
      * @param sfi SFI of the EF to select.
-     * @param counterNumber The number of the counter (must be zero in case of a simulated counter).
-     * @param decValue Value to subtract to the counter (defined as a positive int {@code <=}
-     *        16777215 [FFFFFFh])
+     * @param counterNumberToIncValueMap The map containing the counter numbers to be incremented
+     *        and their associated increment values.
      * @return The current instance.
-     * @throw IllegalArgumentException If one of the provided argument is out of range.
-     * @since 1.0.0
+     * @throws UnsupportedOperationException If the increase multiple command is not available for
+     *         this card.
+     * @throws IllegalArgumentException If one of the provided argument is out of range or if the
+     *         map is null or empty.
+     * @since 1.1.0
      */
-    virtual CardTransactionManager& prepareDecreaseCounter(const uint8_t sfi,
-                                                           const int counterNumber,
-                                                           const int decValue) = 0;
+    virtual CardTransactionManager& prepareDecreaseCounter(
+        const uint8_t sfi, const std::map<int, int> counterNumberToIncValueMap) = 0;
 
     /**
      * Schedules the execution of a <b>Increase Multiple</b> command to increase multiple target
@@ -665,17 +666,16 @@ public:
      * IllegalStateException} will be raised during the execution of processClosing().
      *
      * @param sfi SFI of the EF to select.
-     * @param counterNumberToIncValueMap The map containing the counter numbers to be incremented
-     *        and their associated increment values.
+     * @param counterNumber The number of the counter (must be zero in case of a simulated counter).
+     * @param decValue Value to subtract to the counter (defined as a positive int {@code <=}
+     *        16777215 [FFFFFFh])
      * @return The current instance.
-     * @throws UnsupportedOperationException If the increase multiple command is not available for
-     *         this card.
-     * @throws IllegalArgumentException If one of the provided argument is out of range or if the
-     *         map is null or empty.
-     * @since 1.1.0
+     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @since 1.0.0
      */
-    virtual CardTransactionManager& prepareIncreaseMultipleCounters(
-        const uint8_t sfi, const std::map<int, int> counterNumberToIncValueMap) = 0;
+    virtual CardTransactionManager& prepareDecreaseCounter(const uint8_t sfi,
+                                                           const int counterNumber,
+                                                           const int decValue);
 
     /**
      * Schedules the execution of a <b>Decrease Multiple</b> command to decrease multiple target
@@ -697,7 +697,7 @@ public:
      *         map is null or empty.
      * @since 1.1.0
      */
-    virtual CardTransactionManager& prepareDecreaseMultipleCounters(
+    virtual CardTransactionManager& prepareDecreaseCounters(
         const uint8_t sfi, const std::map<int, int> counterNumberToDecValueMap) = 0;
 
     /**
