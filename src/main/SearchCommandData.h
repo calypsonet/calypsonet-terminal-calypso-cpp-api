@@ -31,7 +31,6 @@ public:
      *
      * @param sfi The SFI of the EF.
      * @return The current instance.
-     * @throws IllegalArgumentException If the provided sfi is not in the range [0;31].
      * @since 1.1.0
      */
     virtual SearchCommandData& setSfi(const uint8_t sfi) = 0;
@@ -43,7 +42,6 @@ public:
      *
      * @param recordNumber The number of the record where the search should begin.
      * @return The current instance.
-     * @throws IllegalArgumentException If the provided record number is not in the range [1;255].
      * @since 1.1.0
      */
     virtual SearchCommandData& startAtRecord(const int recordNumber) = 0;
@@ -56,7 +54,6 @@ public:
      *
      * @param offset The offset.
      * @return The current instance.
-     * @throws IllegalArgumentException If the provided offset is not in the range [0;255].
      * @since 1.1.0
      */
     virtual SearchCommandData& setOffset(const int offset) = 0;
@@ -76,7 +73,6 @@ public:
      *
      * @param data The data to search.
      * @return The current instance.
-     * @throws IllegalArgumentException If the provided data is null or empty.
      * @since 1.1.0
      */
     virtual SearchCommandData& setSearchData(const std::vector<uint8_t>& data) = 0;
@@ -90,7 +86,6 @@ public:
      *
      * @param mask The mask.
      * @return The current instance.
-     * @throws IllegalArgumentException If the provided mask is null or empty.
      * @since 1.1.0
      */
     virtual SearchCommandData& setMask(const std::vector<uint8_t>& mask) = 0;
@@ -105,9 +100,9 @@ public:
     virtual SearchCommandData& fetchFirstMatchingResult() = 0;
 
     /**
-     * Returns an array containing the numbers of the records who has matched.
+     * Returns a list containing the numbers of the records who has matched.
      *
-     * @return An empty array if no record has matched or if the command has not yet been processed.
+     * @return An empty list if no record has matched or if the command has not yet been processed.
      * @since 1.1.0
      */
     virtual const std::vector<int> getMatchingRecordNumbers() = 0;
