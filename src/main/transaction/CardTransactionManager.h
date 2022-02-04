@@ -381,11 +381,11 @@ public:
      * @throws IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.1.0
      */
-    virtual CardTransactionManager& prepareReadPartialRecords(const uint8_t sfi,
-                                                              const int fromRecordNumber,
-                                                              const int toRecordNumber,
-                                                              const int offset,
-                                                              const int nbBytesToRead) = 0;
+    virtual CardTransactionManager& prepareReadRecordsPartially(const uint8_t sfi,
+                                                                const int fromRecordNumber,
+                                                                const int toRecordNumber,
+                                                                const int offset,
+                                                                const int nbBytesToRead) = 0;
 
     /**
      * Schedules the execution of one or multiple <b>Read Binary</b> commands to read all or part of
