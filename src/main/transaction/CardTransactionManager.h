@@ -545,14 +545,16 @@ public:
                                                        const std::vector<uint8_t>&  data) = 0;
 
     /**
-     * Schedules the execution of a <b>Increase command</b> command to increase the target counter.
+     * Schedules the execution of a <b>Increase</b> command to increase the target counter.
      *
-     * <p>Note: calypsonet::terminal::calypso::card::CalypsoCard is filled with the provided input
-     * data.
+     * <p>Note 1: CalypsoCard is updated with the provided input data.
      *
-     * @param counterNumber {@code >=} 1: Counters file, number of the counter. 0: Simulated.
-     *        Counter file.
+     * <p>Note 2: in the case where this method is invoked before the invocation of
+     * processClosing(), the counter must have been read previously otherwise an
+     * IllegalStateException will be raised during the execution of processClosing().
+     *
      * @param sfi SFI of the EF to select or 0 for current EF.
+     * @param counterNumber The number of the counter (must be zero in case of a simulated counter).
      * @param incValue Value to add to the counter (defined as a positive int {@code <=} 16777215
      *        [FFFFFFh])
      * @return The current instance.
@@ -564,14 +566,16 @@ public:
                                                            const int incValue) = 0;
 
     /**
-     * Schedules the execution of a <b>Decrease command</b> command to decrease the target counter.
+     * Schedules the execution of a <b>Decrease</b> command to decrease the target counter.
      *
-     * <p>Note: calypsonet::terminal::calypso::card::CalypsoCard is filled with the provided input
-     * data.
+     * <p>Note 1: CalypsoCard is updated with the provided input data.
      *
-     * @param counterNumber {@code >=} 1: Counters file, number of the counter. 0: Simulated.
-     *        Counter file.
+     * <p>Note 2: in the case where this method is invoked before the invocation of
+     * processClosing(), the counter must have been read previously otherwise an
+     * IllegalStateException will be raised during the execution of #processClosing().
+     *
      * @param sfi SFI of the EF to select or 0 for current EF.
+     * @param counterNumber The number of the counter (must be zero in case of a simulated counter).
      * @param decValue Value to subtract to the counter (defined as a positive int {@code <=}
      *        16777215 [FFFFFFh])
      * @return The current instance.
@@ -581,6 +585,52 @@ public:
     virtual CardTransactionManager& prepareDecreaseCounter(const uint8_t sfi,
                                                            const int counterNumber,
                                                            const int decValue) = 0;
+
+    /**
+     * Schedules the execution of a <b>Increase Multiple</b> command to increase multiple target
+     * counters at the same time.
+     *
+     * <p>Note 1: CalypsoCard is updated with the provided input data.
+     *
+     * <p>Note 2: in the case where this method is invoked before the invocation of
+     * processClosing(), the counter must have been read previously otherwise an
+     * IllegalStateException} will be raised during the execution of processClosing().
+     *
+     * @param sfi SFI of the EF to select or 0 for current EF.
+     * @param counterNumberToIncValueMap The map containing the counter numbers to be incremented
+     *        and their associated increment values.
+     * @return The current instance.
+     * @throws UnsupportedOperationException If the increase multiple command is not available for
+     *         this card.
+     * @throws IllegalArgumentException If one of the provided argument is out of range or if the
+     *         map is null or empty.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareIncreaseMultipleCounters(
+        const uint8_t sfi, const std::map<int, int> counterNumberToIncValueMap) = 0;
+
+    /**
+     * Schedules the execution of a <b>Decrease Multiple</b> command to decrease multiple target
+     * counters at the same time.
+     *
+     * <p>Note 1: CalypsoCard is updated with the provided input data.
+     *
+     * <p>Note 2: in the case where this method is invoked before the invocation of
+     * processClosing(), the counter must have been read previously otherwise an
+     * IllegalStateException} will be raised during the execution of processClosing().
+     *
+     * @param sfi SFI of the EF to select or 0 for current EF.
+     * @param counterNumberToDecValueMap The map containing the counter numbers to be decremented
+     *        and their associated decrement values.
+     * @return The current instance.
+     * @throws UnsupportedOperationException If the decrease multiple command is not available for
+     *         this card.
+     * @throws IllegalArgumentException If one of the provided argument is out of range or if the
+     *         map is null or empty.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareDecreaseMultipleCounters(
+        const uint8_t sfi, const std::map<int, int> counterNumberToDecValueMap) = 0;
 
     /**
      * Schedules the execution of a command to set the value of the target counter.
