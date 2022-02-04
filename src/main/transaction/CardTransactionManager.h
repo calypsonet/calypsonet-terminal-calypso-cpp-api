@@ -792,6 +792,33 @@ public:
     virtual CardTransactionManager& prepareRehabilitate() = 0;
 
     /**
+     * Schedules the replacement of one of the current card keys with another key present in the SAM.
+     *
+     * <p>This command can be performed only out of a secure session.
+     *
+     * <p>The change key process transfers the key from the SAM to the card. The new key is
+     * diversified by the SAM from a primary key and encrypted using the indicated issuer key to
+     * secure the transfer to the card. All provided KIFs and KVCs must be present in the SAM.
+     *
+     * @param keyIndex The index of the key to be replaced (1 for the issuer key, 2 for the load key,
+     *        3 for the debit key).
+     * @param newKif The KIF of the new key.
+     * @param newKvc The KVC of the new key.
+     * @param issuerKif The KIF of the current card's issuer key.
+     * @param issuerKvc The KVC of the current card's issuer key.
+     * @return The current instance.
+     * @throws UnsupportedOperationException If the Change Key command is not available for this card.
+     * @throws IllegalArgumentException If the provided key index is out of range.
+     * @throws IllegalStateException If the command is executed while a secure session is open.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareChangeKey(const int keyIndex,
+                                                     const uint8_t newKif,
+                                                     const uint8_t newKvc,
+                                                     const uint8_t issuerKif,
+                                                     const uint8_t issuerKvc) = 0;
+
+    /**
      * Requests the closing of the card channel.
      *
      * <p>If this command is called before a "process" command (except for processOpening) then the
@@ -883,6 +910,27 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& processVerifyPin(const std::string& pin) = 0;
+
+    /**
+     * Replaces the current PIN with the new value provided.
+     *
+     * <p>This command can be performed only out of a secure session. The new PIN code can be
+     * transmitted in plain text or encrypted according to the parameter set in CardSecuritySetting
+     * (by default the transmission is encrypted).
+     *
+     * <p>When the PIN is transmitted plain, this command must be preceded by a successful Verify
+     * PIN command (see processVerifyPin(byte[])).
+     *
+     * @param newPin The new PIN code value (4-byte long byte array).
+     * @return The current instance.
+     * @throws UnsupportedOperationException If the PIN feature is not available for this card.
+     * @throws IllegalArgumentException If the provided argument is out of range.
+     * @throws IllegalStateException If the command is executed while a secure session is open.
+     * @throws CardTransactionException If a functional error occurs (including card and SAM IO
+     *         errors).
+     * @since 1.0.0
+     */
+    virtual CardTransactionManager& processChangePin(const std::vector<uint8_t>& newPin) = 0;
 
     /**
      * Opens a Calypso Secure Session and then executes all previously prepared commands.
