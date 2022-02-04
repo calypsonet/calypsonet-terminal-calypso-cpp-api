@@ -13,6 +13,7 @@
 #pragma once
 
 #include <cstdint>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -310,6 +311,33 @@ public:
                                                             const int nbRecordsToRead,
                                                             const int offset,
                                                             const int nbBytesToRead) = 0;
+
+    /**
+     * Schedules the execution of a <b>Search Record Multiple</b> command to search data in the
+     * records of the indicated EF, from a given record to the last record of the file. It will
+     * return the list of record numbers containing these data, and if requested it will read the
+     * first record content.
+     *
+     * <p>The command is only possible with a Linear, Cyclic, Counters or Simulated Counter EF.
+     *
+     * <p>The command searches if the given data are present in the records of the file. During the
+     * search, an optional mask is applied. The mask allows to specify precisely the bits to be
+     * taken into account in the comparison.
+     *
+     * <p>See SearchCommandData class for a description of the parameters.
+     *
+     * <p>Once this command is processed, the result is available in the provided input/output
+     * SearchCommandData object, and the content of the first matching record in CalypsoCard
+     * if requested, if the command is supported by the card and if the requested file, record and
+     * offset exist in the file structure of the card (best effort behavior).
+     *
+     * @param data The input/output data containing the parameters of the command.
+     * @return The current instance.
+     * @throws IllegalArgumentException If the input data is inconsistent.
+     * @since 1.1.0
+     */
+    virtual CalypsoCardSelection& prepareSearchRecordMultiple(
+        const std::shared_ptr<SearchCommandData> data);
 
     /**
      * Adds a command APDU to retrieve the data indicated by the provided tag.

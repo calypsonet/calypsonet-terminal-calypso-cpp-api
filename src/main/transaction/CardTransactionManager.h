@@ -425,10 +425,50 @@ public:
                                                        const int nbCountersToRead) = 0;
 
     /**
+     * Schedules the execution of a <b>Search Record Multiple</b> command to search data in the
+     * records of the indicated EF, from a given record to the last record of the file. It will
+     * return the list of record numbers containing these data, and if requested it will read the
+     * first record content.
+     *
+     * <p>The command is only possible with a Linear, Cyclic, Counters or Simulated Counter EF.
+     *
+     * <p>The command searches if the given data are present in the records of the file. During the
+     * search, an optional mask is applied. The mask allows to specify precisely the bits to be
+     * taken into account in the comparison.
+     *
+     * <p>See SearchCommandData class for a description of the parameters.
+     *
+     * <p>Once this command is processed, the result is available in the provided input/output
+     * SearchCommandData object, and the content of the first matching record in CalypsoCard
+     * if requested.
+     *
+     * <p>Depending on whether we are inside a secure session, there are two types of behavior
+     * following this command:
+     *
+     * <ul>
+     *   <li>Outside a secure session (best effort mode): the following "process" command will not
+     *       fail whatever the existence of the targeted file or the validity of the record number
+     *       and offset (the SearchCommandData and CalypsoCard objects may not be updated).
+     *   <li>Inside a secure session (strict mode): the following "process" command will fail if the
+     *       targeted file does not exist or if the record number and the offset are not valid (the
+     *       SearchCommandData and CalypsoCard objects are always filled or an
+     *       exception is raised when the reading failed).
+     * </ul>
+     *
+     * @param data The input/output data containing the parameters of the command.
+     * @return The current instance.
+     * @throws IllegalArgumentException If the input data is inconsistent.
+     * @since 1.1.0
+     */
+    virtual CardTransactionManager& prepareSearchRecordMultiple(
+        const std::shared_ptr<SearchCommandData> data);
+
+    /**
      * Schedules the execution of a <b>Verify Pin</b> command without PIN presentation in order to
      * get the attempt counter.
      *
-     * <p>The PIN status will be made available in CalypsoCard after the execution of process command.
+     * <p>The PIN status will be made available in CalypsoCard after the execution of process
+     * command.
      * <br>
      * Adds it to the list of commands to be sent with the next process command.
      *
