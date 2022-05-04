@@ -61,7 +61,7 @@ using namespace calypsonet::terminal::reader::selection::spi;
  *
  * @since 1.0.0
  */
-class CalypsoCardSelection final : public CardSelection {
+class CalypsoCardSelection : public CardSelection {
 public:
     /**
      * Navigation options through the different applications contained in the card according to the

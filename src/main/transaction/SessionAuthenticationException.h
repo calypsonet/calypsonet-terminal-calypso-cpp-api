@@ -45,7 +45,8 @@ public:
      * @param cause The cause.
      * @since 1.0.0
      */
-    SessionAuthenticationException(const std::string& message, const std::exception& cause)
+    SessionAuthenticationException(const std::string& message,
+                                   const std::shared_ptr<Exception> cause)
     : CardTransactionException(message, cause) {}
 };
 

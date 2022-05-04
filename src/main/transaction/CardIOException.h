@@ -42,7 +42,7 @@ public:
      * @param cause The cause.
      * @since 1.0.0
      */
-    CardIOException(const std::string& message, const std::exception& cause)
+    CardIOException(const std::string& message, const std::shared_ptr<Exception> cause)
     : CardTransactionException(message, cause) {}
 };
 

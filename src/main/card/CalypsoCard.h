@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -115,7 +116,7 @@ public:
      * @return A not null reference.
      * @since 1.0.0
      */
-    virtual ProductType getProductType() const = 0;
+    virtual const ProductType& getProductType() const = 0;
 
     /**
      * Indicates if the card is a Calypso HCE (Host Card Emulation) .
@@ -147,7 +148,7 @@ public:
      * @return A not null byte array containing the Application Serial Number (8 bytes).
      * @since 1.0.0
      */
-    virtual const std::vector<uint8_t>& getApplicationSerialNumber() const = 0;
+    virtual const std::vector<uint8_t> getApplicationSerialNumber() const = 0;
 
     /**
      * Gets the raw Calypso startup information.
@@ -272,7 +273,8 @@ public:
      * @since 1.0.0
      * @deprecated Since an EF may not have an SFI, the getFiles() method must be used instead.
      */
-    virtual const std::map<uint8_t, const std::shared_ptr<ElementaryFile>> getAllFiles() const = 0;
+    virtual const std::map<const uint8_t, const std::shared_ptr<ElementaryFile>> getAllFiles() const
+        = 0;
 
     /**
      * Returns a reference to the set of all known Elementary Files contains inside the current DF.
@@ -283,7 +285,7 @@ public:
      * @return A not null reference (may be empty if no one EF is set).
      * @since 1.1.0
      */
-    virtual const std::vector<std::shared_ptr<ElementaryFile>> getFiles();
+    virtual const std::vector<std::shared_ptr<ElementaryFile>>& getFiles() const = 0;
 
     /**
      * Tells if the current DF is  invalidated or not.
@@ -404,7 +406,7 @@ public:
      * @return A last SV load log record object or null if not available.
      * @since 1.0.0
      */
-    virtual const std::shared_ptr<SvLoadLogRecord> getSvLoadLogRecord() const = 0;
+    virtual const std::shared_ptr<SvLoadLogRecord> getSvLoadLogRecord() = 0;
 
     /**
      * Gets a reference to the last SvDebitLogRecord
@@ -412,7 +414,7 @@ public:
      * @return A last SV debit log record object or null if not available.
      * @since 1.0.0
      */
-    virtual const std::shared_ptr<SvDebitLogRecord> getSvDebitLogLastRecord() const = 0;
+    virtual const std::shared_ptr<SvDebitLogRecord> getSvDebitLogLastRecord() = 0;
 
     /**
      * Gets list of references to the SvDebitLogRecord read from the card.
@@ -423,6 +425,34 @@ public:
     virtual const std::vector<std::shared_ptr<SvDebitLogRecord>> getSvDebitLogAllRecords() const
         = 0;
 };
+
+inline std::ostream& operator<<(std::ostream& os, const CalypsoCard::ProductType& pt)
+{
+    os << "PRODUCT_TYPE: ";
+
+    switch (pt) {
+    case CalypsoCard::ProductType::BASIC:
+        os << "BASIC";
+        break;
+    case CalypsoCard::ProductType::LIGHT:
+        os << "LIGHT";
+        break;
+    case CalypsoCard::ProductType::PRIME_REVISION_1:
+        os << "PRIME_REVISION_1";
+        break;
+    case CalypsoCard::ProductType::PRIME_REVISION_2:
+        os << "PRIME_REVISION_2";
+        break;
+    case CalypsoCard::ProductType::PRIME_REVISION_3:
+        os << "PRIME_REVISION_3";
+        break;
+    default:
+        os << "UNKNOWN";
+        break;
+    }
+
+    return os;
+}
 
 }
 }

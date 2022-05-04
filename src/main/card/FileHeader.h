@@ -45,7 +45,7 @@ public:
      *         following the response to a "Get Data" command with the GetDataTag::EF_LIST tag).
      * @since 1.0.0
      */
-    virtual std::shared_ptr<uint8_t> getDfStatus() const = 0;
+    virtual const std::shared_ptr<uint8_t> getDfStatus() const = 0;
 
     /**
      * Gets the Elementary File type.
@@ -101,7 +101,7 @@ public:
      *         GetDataTag::EF_LIST tag).
      * @since 1.0.0
      */
-    virtual const std::vector<uint8_t>& getKeyIndexes() = 0;
+    virtual const std::vector<uint8_t>& getKeyIndexes() const = 0;
 
     /**
      * Gets the non-zero unique identifier of the shared data when the file data is shared.

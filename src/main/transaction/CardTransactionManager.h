@@ -489,7 +489,7 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareSearchRecords(
-        const std::shared_ptr<SearchCommandData> data);
+        const std::shared_ptr<SearchCommandData> data) = 0;
 
     /**
      * Schedules the execution of a <b>Verify Pin</b> command without PIN presentation in order to
@@ -547,7 +547,7 @@ public:
      */
     virtual CardTransactionManager& prepareUpdateRecord(const uint8_t sfi,
                                                         const int recordNumber,
-                                                        const std::vector<uint8_t> recordData) = 0;
+                                                        const std::vector<uint8_t>& recordData) = 0;
 
     /**
      * Schedules the execution of a <b>Write Record</b> command to updates the target file's record
@@ -569,7 +569,7 @@ public:
      */
     virtual CardTransactionManager& prepareWriteRecord(const uint8_t sfi,
                                                        const int recordNumber,
-                                                       const std::vector<uint8_t> recordData) = 0;
+                                                       const std::vector<uint8_t>& recordData) = 0;
 
     /**
      * Schedules the execution of a <b>Update Binary</b> command to replace the indicated data of a
@@ -634,26 +634,27 @@ public:
                                                            const int incValue) = 0;
 
     /**
-     * Schedules the execution of a <b>Decrease</b> command to decrease the target counter.
+     * Schedules the execution of a <b>Increase Multiple</b> command to increase multiple target
+     * counters at the same time.
      *
      * <p>Note 1: CalypsoCard is updated with the provided input data.
      *
      * <p>Note 2: in the case where this method is invoked before the invocation of
      * processClosing(), the counter must have been read previously otherwise an
-     * IllegalStateException will be raised during the execution of #processClosing().
+     * IllegalStateException will be raised during the execution of processClosing().
      *
      * @param sfi SFI of the EF to select.
      * @param counterNumberToIncValueMap The map containing the counter numbers to be incremented
      *        and their associated increment values.
      * @return The current instance.
-     * @throws UnsupportedOperationException If the increase multiple command is not available for
-     *         this card.
-     * @throws IllegalArgumentException If one of the provided argument is out of range or if the
-     *         map is null or empty.
+     * @throw UnsupportedOperationException If the increase multiple command is not available for
+     *        this card.
+     * @throw IllegalArgumentException If one of the provided argument is out of range or if the map
+     *        is null or empty.
      * @since 1.1.0
      */
-    virtual CardTransactionManager& prepareDecreaseCounter(
-        const uint8_t sfi, const std::map<int, int> counterNumberToIncValueMap) = 0;
+    virtual CardTransactionManager& prepareIncreaseCounters(
+        const uint8_t sfi, const std::map<const int, const int>& counterNumberToIncValueMap) = 0;
 
     /**
      * Schedules the execution of a <b>Increase Multiple</b> command to increase multiple target
@@ -675,7 +676,7 @@ public:
      */
     virtual CardTransactionManager& prepareDecreaseCounter(const uint8_t sfi,
                                                            const int counterNumber,
-                                                           const int decValue);
+                                                           const int decValue) = 0;
 
     /**
      * Schedules the execution of a <b>Decrease Multiple</b> command to decrease multiple target
@@ -698,7 +699,7 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareDecreaseCounters(
-        const uint8_t sfi, const std::map<int, int> counterNumberToDecValueMap) = 0;
+        const uint8_t sfi, const std::map<const int, const int>& counterNumberToDecValueMap) = 0;
 
     /**
      * Schedules the execution of a command to set the value of the target counter.
@@ -823,8 +824,8 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvDebit(const int amount,
-                                                   const std::vector<uint8_t> date,
-                                                   const std::vector<uint8_t> time) = 0;
+                                                   const std::vector<uint8_t>& date,
+                                                   const std::vector<uint8_t>& time) = 0;
 
     /**
      * Schedules the execution of a <b>SV Debit</b> or <b>SV Undebit</b> command to increase the
@@ -981,26 +982,6 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& processVerifyPin(const std::vector<uint8_t>& pin) = 0;
-
-    /**
-     * Invokes processVerifyPin() with a string converted into an array of bytes as argument.
-     *
-     * <p>The provided String is converted into an array of bytes and processed with {@link
-     * processVerifyPin().
-     *
-     * <p>E.g. "1234" will be transmitted as { 0x31,0x32,0x33,0x34 }
-     *
-     * @param pin An ASCII string (4-character long).
-     * @return The current instance.
-     * @throw UnsupportedOperationException If the PIN feature is not available for this card
-     * @throw IllegalArgumentException If the provided argument is out of range.
-     * @throw IllegalStateException If commands have been prepared before invoking this process
-     *        method.
-     * @throw CardTransactionException If a functional error occurs (including card and SAM IO
-     *        errors)
-     * @since 1.0.0
-     */
-    virtual CardTransactionManager& processVerifyPin(const std::string& pin) = 0;
 
     /**
      * Replaces the current PIN with the new value provided.

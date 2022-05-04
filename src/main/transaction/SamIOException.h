@@ -43,7 +43,7 @@ public:
      * @param cause The cause.
      * @since 1.0.0
      */
-    SamIOException(const std::string& message, const std::exception& cause)
+    SamIOException(const std::string& message, const std::shared_ptr<Exception> cause)
     : CardTransactionException(message, cause) {}
 };
 

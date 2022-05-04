@@ -13,6 +13,7 @@
 #pragma once
 
 #include <cstdint>
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -89,7 +90,7 @@ public:
      * @return A not null String.
      * @since 1.0.0
      */
-    virtual const std::string& getProductInfo() const = 0;
+    virtual const std::string getProductInfo() const = 0;
 
     /**
      * Gets the SAM serial number as an array of bytes
@@ -97,7 +98,7 @@ public:
      * @return A not null array of bytes
      * @since 1.0.0
      */
-    virtual const std::vector<uint8_t> getSerialNumber() const = 0;
+    virtual const std::vector<uint8_t>& getSerialNumber() const = 0;
 
     /**
      * Gets the platform identifier
@@ -147,6 +148,31 @@ public:
      */
     virtual uint8_t getSoftwareRevision() const = 0;
 };
+
+inline std::ostream& operator<<(std::ostream& os, const CalypsoSam::ProductType& pt)
+{
+    os << "PRODUCT_TYPE: ";
+
+    switch (pt) {
+    case CalypsoSam::ProductType::SAM_C1:
+        os << "SAM_C1";
+        break;
+    case CalypsoSam::ProductType::SAM_S1E1:
+        os << "SAM_S1E1";
+        break;
+    case CalypsoSam::ProductType::SAM_S1DX:
+        os << "SAM_S1DX";
+        break;
+    case CalypsoSam::ProductType::CSAM_F:
+        os << "CSAM_F";
+        break;
+    default:
+        os << "UNKNOWN";
+        break;
+    }
+
+    return os;
+}
 
 }
 }

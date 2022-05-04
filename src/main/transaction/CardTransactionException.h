@@ -45,7 +45,7 @@ protected:
      * @param cause The cause.
      * @since 1.0.0
      */
-    CardTransactionException(const std::string& message, const std::exception& cause)
+    CardTransactionException(const std::string& message, const std::shared_ptr<Exception> cause)
     : RuntimeException(message, cause) {}
 };
 

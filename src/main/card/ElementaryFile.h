@@ -14,6 +14,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <ostream>
 
 /* Calypsonet Terminal Calypso */
 #include "FileData.h"
@@ -102,6 +103,55 @@ public:
      * @since 1.0.0
      */
     virtual const std::shared_ptr<FileData> getData() const = 0;
+
+    /**
+     *
+     */
+    friend std::ostream& operator<<(std::ostream& os, const ElementaryFile& ef)
+    {
+        os << "ELEMENTARY_FILE: {"
+           << "SFI: " << ef.getSfi() << ", "
+           << "HEADER: " << ef.getHeader() << ", "
+           << "DATA: " << ef.getData()
+           << "}";
+
+        return os;
+    }
+
+    /**
+     *
+     */
+    friend std::ostream& operator<<(std::ostream& os, const std::shared_ptr<ElementaryFile> ef)
+    {
+        if (ef == nullptr) {
+            os << "ELEMENTARY_FILE: null";
+        } else {
+            os << *ef.get();
+        }
+
+        return os;
+    }
+
+    /**
+     *
+     */
+    friend std::ostream& operator<<(std::ostream& os,
+                                    const std::vector<std::shared_ptr<ElementaryFile>>& ef)
+    {
+        os << "ELEMENTARY_FILES: {";
+
+        for (auto it = ef.begin(); it != ef.end(); it++) {
+            if (it != ef.begin()) {
+                os << ", ";
+            }
+
+            os << *it;
+        }
+
+        os << "}";
+
+        return os;
+    }
 };
 
 }

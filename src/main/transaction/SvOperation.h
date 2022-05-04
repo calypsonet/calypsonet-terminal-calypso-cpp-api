@@ -12,6 +12,8 @@
 
 #pragma once
 
+#include <ostream>
+
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
@@ -37,6 +39,19 @@ enum class SvOperation {
      */
     DEBIT
 };
+
+inline std::ostream& operator<<(std::ostream& os, const SvOperation& so)
+{
+    os << "SV_OPERATION = ";
+
+    if (so == SvOperation::DEBIT) {
+        os << "DEBIT";
+    } else {
+        os << "RELOAD";
+    }
+
+    return os;
+}
 
 }
 }

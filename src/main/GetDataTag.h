@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include <ostream>
 #include <string>
 
 namespace calypsonet {
@@ -54,6 +55,29 @@ enum class GetDataTag {
      */
     TRACEABILITY_INFORMATION
 };
+
+inline std::ostream& operator<<(std::ostream& os, const GetDataTag& t)
+{
+    switch (t) {
+    case GetDataTag::FCP_FOR_CURRENT_FILE:
+        os << "FCP_FOR_CURRENT_FILE";
+        break;
+    case GetDataTag::FCI_FOR_CURRENT_DF:
+        os << "FCI_FOR_CURRENT_DF";
+        break;
+    case GetDataTag::EF_LIST:
+        os << "EF_LIST";
+        break;
+    case GetDataTag::TRACEABILITY_INFORMATION:
+        os << "TRACEABILITY_INFORMATION";
+        break;
+    default:
+        os << "UNKONWN";
+        break;
+    };
+
+    return os;
+}
 
 }
 }

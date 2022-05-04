@@ -54,7 +54,7 @@ public:
      * @return A not empty byte array.
      * @since 1.0.0
      */
-    virtual const std::vector<uint8_t> getAccessConditions() const = 0;
+    virtual const std::vector<uint8_t>& getAccessConditions() const = 0;
 
     /**
      * Gets a reference to keys indexes.
@@ -62,7 +62,7 @@ public:
      * @return A not empty byte array.
      * @since 1.0.0
      */
-    virtual const std::vector<uint8_t> getKeyIndexes() const = 0;
+    virtual const std::vector<uint8_t>& getKeyIndexes() const = 0;
 
     /**
      * Gets the KIF associated to the provided write access level.

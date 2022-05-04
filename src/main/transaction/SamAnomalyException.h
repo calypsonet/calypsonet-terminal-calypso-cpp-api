@@ -12,7 +12,6 @@
 
 #pragma once
 
-#include <exception>
 #include <string>
 
 /* Calypsonet Terminal Calypso */
@@ -37,7 +36,7 @@ public:
      * @param cause The cause.
      * @since 1.0.0
      */
-    SamAnomalyException(const std::string& message, const std::exception& cause)
+    SamAnomalyException(const std::string& message, const std::shared_ptr<Exception> cause)
     : CardTransactionException(message, cause) {}
 };
 

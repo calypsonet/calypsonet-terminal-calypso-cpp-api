@@ -107,7 +107,7 @@ public:
      * @return An empty list if no record has matched or if the command has not yet been processed.
      * @since 1.1.0
      */
-    virtual const std::vector<int> getMatchingRecordNumbers() = 0;
+    virtual std::vector<int>& getMatchingRecordNumbers() = 0;
 };
 
 }

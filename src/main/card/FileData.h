@@ -35,7 +35,7 @@ public:
      * @return an empty array if the record #1 is not set.
      * @since 1.0.0
      */
-    virtual const std::vector<uint8_t>& getContent() const = 0;
+    virtual const std::vector<uint8_t> getContent() const = 0;
 
     /**
      * Gets a reference to the known content of a specific record.
@@ -44,7 +44,7 @@ public:
      * @return an empty array if the requested record is not set.
      * @since 1.0.0
      */
-    virtual const std::vector<uint8_t>& getContent(const int numRecord) const = 0;
+    virtual const std::vector<uint8_t> getContent(const int numRecord) const = 0;
 
     /**
      * Gets a copy of a known content subset of a specific record from dataOffset to dataLength.
@@ -59,9 +59,9 @@ public:
      *        dataLength) {@code >} content length.
      * @since 1.0.0
      */
-    virtual const std::vector<uint8_t>& getContent(const int numRecord,
-                                                   const int dataOffset,
-                                                   const int dataLength) const = 0;
+    virtual const std::vector<uint8_t> getContent(const int numRecord,
+                                                  const int dataOffset,
+                                                  const int dataLength) const = 0;
 
     /**
      * Gets a reference to all known records content.
@@ -69,7 +69,7 @@ public:
      * @return a not null map eventually empty if there's no content.
      * @since 1.0.0
      */
-    virtual const std::map<const int, const std::vector<uint8_t>>& getAllRecordsContent() const = 0;
+    virtual const std::map<int, std::vector<uint8_t>>& getAllRecordsContent() const = 0;
 
     /**
      * Gets the known value of the counter #numCounter.<br>
@@ -84,7 +84,7 @@ public:
      *        modulo 3 != 0).
      * @since 1.0.0
      */
-    virtual std::shared_ptr<int> getContentAsCounterValue(const int numCounter) = 0;
+    virtual const std::shared_ptr<int> getContentAsCounterValue(const int numCounter) const = 0;
 
     /**
      * Gets all known counters value.<br>
