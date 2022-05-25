@@ -21,7 +21,7 @@ jobs:
         run: ./.github/scripts/check_version.sh
       - name: Patch Doxyfile
         working-directory: .
-        run: ./.github/scripts/patch_doxyfile.sh 1.1.0
+        run: ./.github/scripts/patch_doxyfile.sh
       - name: Generate project documentation with Doxygen
         uses: mattnotmitt/doxygen-action@v1.9.2
         with:
@@ -29,7 +29,7 @@ jobs:
           doxyfile-path: ./Doxyfile
       - name: Prepare Doxygen doc page locally
         working-directory: .
-        run: ./.github/scripts/prepare_doxygen.sh 1.1.0
+        run: ./.github/scripts/prepare_doxygen.sh
       - name: Deploy Doxygen documentation to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
