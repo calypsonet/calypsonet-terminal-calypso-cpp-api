@@ -1,0 +1,4 @@
+theme: jekyll-theme-minimal
+title: Calypsonet Terminal Calypso C++ API
+include:
+  - "_*.html"
