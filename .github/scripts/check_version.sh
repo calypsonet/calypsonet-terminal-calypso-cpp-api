@@ -18,6 +18,6 @@ else
   git fetch --tags
   if [ $(git tag -l "$version") ]; then
     echo "ERROR: version '$version' has already been released"
-    exit 1
+#    exit 1
   fi
 fi
