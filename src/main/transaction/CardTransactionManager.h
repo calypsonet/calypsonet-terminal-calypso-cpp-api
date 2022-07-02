@@ -38,7 +38,6 @@ namespace transaction {
 
 using namespace calypsonet::terminal::calypso;
 using namespace calypsonet::terminal::calypso::card;
-using namespace calypsonet::terminal::calypso::transaction;
 using namespace calypsonet::terminal::reader;
 
 /**
@@ -208,12 +207,12 @@ public:
      * @since 1.0.0
      * @deprecated Use prepareReadRecords(const uint8_t, const int) method instead.
      */
-    virtual CardTransactionManager& prepareReadRecordFile(const uint8_t sfi, const int recordNumber)
-        = 0;
+    virtual CardTransactionManager& prepareReadRecordFile(const uint8_t sfi,
+                                                          const uint8_t recordNumber) = 0;
 
     /**
-     * Schedules the execution of a <b>Read Records</b> command to read one or more records from the
-     * indicated EF.
+     * Schedules the execution of a <b>Read Records</b> command to read one or more records from
+     * the indicated EF.
      *
      * <p>Once this command is processed, the result is available in
      * calypsonet::terminal::calypso::card::CalypsoCard.
@@ -225,9 +224,9 @@ public:
      *   <li>Outside a secure session (best effort mode): the following "process" command will not
      *       fail whatever the existence of the targeted file or record (the {@link CalypsoCard}
      *       object may not be filled).
-     *   <li>Inside a secure session (strict mode): the following "process" command will fail if the
-     *       targeted file or record does not exist (the {@link CalypsoCard} object is always filled
-     *       or an exception is raised when the reading failed).<br>
+     *   <li>Inside a secure session (strict mode): the following "process" command will fail if 
+     *       the targeted file or record does not exist (the {@link CalypsoCard} object is always
+     *       filled or an exception is raised when the reading failed).<br>
      *       Invalid parameters could lead to additional exchanges with the card and thus corrupt
      *       the security of the session.
      * </ul>
@@ -244,9 +243,9 @@ public:
      *            instead.
      */
     virtual CardTransactionManager& prepareReadRecordFile(const uint8_t sfi,
-                                                          const int firstRecordNumber,
-                                                          const int numberOfRecords,
-                                                          const int recordSize) = 0;
+                                                          const uint8_t firstRecordNumber,
+                                                          const uint8_t numberOfRecords,
+                                                          const uint8_t recordSize) = 0;
 
     /**
      * Schedules the execution of a <b>Read Records</b> command to reads a record of the indicated
@@ -280,7 +279,7 @@ public:
      * @deprecated Use prepareReadCounter(const uint8_t, const int) method instead.
      */
     virtual CardTransactionManager& prepareReadCounterFile(const uint8_t sfi,
-                                                           const int countersNumber) = 0;
+                                                           const uint8_t countersNumber) = 0;
 
     /**
      * Schedules the execution of a <b>Read Records</b> command to read a single record from the
@@ -314,12 +313,12 @@ public:
      *     mode.
      * @since 1.1.0
      */
-    virtual CardTransactionManager& prepareReadRecord(const uint8_t sfi, const int recordNumber)
-        = 0;
+    virtual CardTransactionManager& prepareReadRecord(const uint8_t sfi, 
+                                                      const uint8_t recordNumber)  = 0;
 
     /**
-     * Schedules the execution of a <b>Read Records</b> command to read one or more records from the
-     * indicated EF.
+     * Schedules the execution of a <b>Read Records</b> command to read one or more records from
+     * the indicated EF.
      *
      * <p>Once this command is processed, the result is available in CalypsoCard.
      *
@@ -346,9 +345,9 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareReadRecords(const uint8_t sfi,
-                                                       const int fromRecordNumber,
-                                                       const int toRecordNumber,
-                                                       const int recordSize) = 0;
+                                                       const uint8_t fromRecordNumber,
+                                                       const uint8_t toRecordNumber,
+                                                       const uint8_t recordSize) = 0;
 
     /**
      * Schedules the execution of one or multiple <b>Read Record Multiple</b> commands to read all or
@@ -382,10 +381,10 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareReadRecordsPartially(const uint8_t sfi,
-                                                                const int fromRecordNumber,
-                                                                const int toRecordNumber,
-                                                                const int offset,
-                                                                const int nbBytesToRead) = 0;
+                                                                const uint8_t fromRecordNumber,
+                                                                const uint8_t toRecordNumber,
+                                                                const uint8_t offset,
+                                                                const uint8_t nbBytesToRead) = 0;
 
     /**
      * Schedules the execution of one or multiple <b>Read Binary</b> commands to read all or part of
@@ -417,8 +416,8 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareReadBinary(const uint8_t sfi,
-                                                      const int offset,
-                                                      const int nbBytesToRead) = 0;
+                                                      const uint8_t offset,
+                                                      const uint8_t nbBytesToRead) = 0;
 
     /**
      * Schedules the execution of a <b>Read Records</b> command to reads a record of the indicated EF,
@@ -450,7 +449,7 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareReadCounter(const uint8_t sfi,
-                                                       const int nbCountersToRead) = 0;
+                                                       const uint8_t nbCountersToRead) = 0;
 
     /**
      * Schedules the execution of a <b>Search Record Multiple</b> command to search data in the
@@ -546,7 +545,7 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareUpdateRecord(const uint8_t sfi,
-                                                        const int recordNumber,
+                                                        const uint8_t recordNumber,
                                                         const std::vector<uint8_t>& recordData) = 0;
 
     /**
@@ -568,7 +567,7 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareWriteRecord(const uint8_t sfi,
-                                                       const int recordNumber,
+                                                       const uint8_t recordNumber,
                                                        const std::vector<uint8_t>& recordData) = 0;
 
     /**
@@ -588,7 +587,7 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareUpdateBinary(const uint8_t sfi,
-                                                        const int offset,
+                                                        const uint8_t offset,
                                                         const std::vector<uint8_t>& data) = 0;
 
     /**
@@ -609,7 +608,7 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareWriteBinary(const uint8_t sfi,
-                                                       const int offset,
+                                                       const uint8_t offset,
                                                        const std::vector<uint8_t>&  data) = 0;
 
     /**
@@ -630,7 +629,7 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareIncreaseCounter(const uint8_t sfi,
-                                                           const int counterNumber,
+                                                           const uint8_t counterNumber,
                                                            const int incValue) = 0;
 
     /**
@@ -675,7 +674,7 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareDecreaseCounter(const uint8_t sfi,
-                                                           const int counterNumber,
+                                                           const uint8_t counterNumber,
                                                            const int decValue) = 0;
 
     /**
@@ -732,7 +731,7 @@ public:
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSetCounter(const uint8_t sfi,
-                                                      const int counterNumber,
+                                                      const uint8_t counterNumber,
                                                       const int newValue) = 0;
 
     /**
@@ -1026,7 +1025,7 @@ public:
      * @throws IllegalStateException If the command is executed while a secure session is open.
      * @since 1.1.0
      */
-    virtual CardTransactionManager& processChangeKey(const int keyIndex,
+    virtual CardTransactionManager& processChangeKey(const uint8_t keyIndex,
                                                      const uint8_t newKif,
                                                      const uint8_t newKvc,
                                                      const uint8_t issuerKif,

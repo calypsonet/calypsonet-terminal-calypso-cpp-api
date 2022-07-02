@@ -46,7 +46,7 @@ public:
      * @return The current instance.
      * @since 1.1.0
      */
-    virtual SearchCommandData& startAtRecord(const int recordNumber) = 0;
+    virtual SearchCommandData& startAtRecord(const uint8_t recordNumber) = 0;
 
     /**
      * Sets the offset in number of bytes from which the analysis should be performed within a
@@ -107,7 +107,7 @@ public:
      * @return An empty list if no record has matched or if the command has not yet been processed.
      * @since 1.1.0
      */
-    virtual std::vector<int>& getMatchingRecordNumbers() = 0;
+    virtual std::vector<uint8_t>& getMatchingRecordNumbers() = 0;
 };
 
 }

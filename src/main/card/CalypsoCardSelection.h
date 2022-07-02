@@ -282,8 +282,8 @@ public:
      * @since 1.0.0
      * @deprecated Use prepareReadRecord(const uint8_t, const int) method instead.
      */
-    virtual CalypsoCardSelection& prepareReadRecordFile(const uint8_t sfi, const int recordNumber)
-        = 0;
+    virtual CalypsoCardSelection& prepareReadRecordFile(const uint8_t sfi, 
+                                                        const uint8_t recordNumber) = 0;
 
     /**
      * Adds a command APDU to read a single record from the indicated EF.
@@ -300,7 +300,8 @@ public:
      * @throws IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.1.0
      */
-    virtual CalypsoCardSelection& prepareReadRecord(const uint8_t sfi, const int recordNumber) = 0;
+    virtual CalypsoCardSelection& prepareReadRecord(const uint8_t sfi, const uint8_t recordNumber) 
+        = 0;
 
     /**
      * Adds a command APDU to retrieve the data indicated by the provided tag.
