@@ -57,6 +57,19 @@ public
     virtual SignatureComputationData& setSignatureSize(const int size) = 0;
 
     /**
+     * Sets a specific key diversifier to use before signing (optional).
+     *
+     * <p>By default, the key diversification is performed with the full serial number of the target
+     * card or SAM depending on the transaction context (Card or SAM transaction).
+     *
+     * @param diversifier The diversifier to be used (8 bytes long).
+     * @return The current instance.
+     * @since 1.2.0
+     */
+    virtual SignatureComputationData& setKeyDiversifier(const std::vector<uint8_t>& diversifier) 
+        = 0;
+
+    /**
      * Enables the "SAM traceability" mode to securely record in the data to sign the SAM serial
      * number and the value of the counter associated with the signing key.
      *
@@ -75,8 +88,9 @@ public
      * @return The current instance.
      * @since 1.2.0
      */
-    virtual SignatureComputationData& enableSamTraceabilityMode(
-        const int offset, const bool usePartialSamSerialNumber) = 0;
+    virtual SignatureComputationData& withSamTraceabilityMode(const int offset, 
+                                                              const bool usePartialSamSerialNumber) 
+        = 0;
 
     /**
      * Disables the "Busy" mode. When enabled, if the "PSO Verify Signature" command used to check
@@ -89,30 +103,7 @@ public
      * @return The current instance.
      * @since 1.2.0
      */
-    virtual SignatureComputationData& disableBusyMode() = 0;
-
-    /**
-     * Requests to perform a key diversification with the full serial number of the target card or
-     * SAM before signing.
-     *
-     * <p>By default, there is no diversification of the key.
-     *
-     * @return The current instance.
-     * @since 1.2.0
-     */
-    virtual SignatureComputationData& diversifyKeyWithTargetSerialNumber() = 0;
-
-    /**
-     * Requests to perform a key diversification with the provided diversifier before signing.
-     *
-     * <p>By default, there is no diversification of the key.
-     *
-     * @param diversifier The diversifier to be used (8 bytes long).
-     * @return The current instance.
-     * @since 1.2.0
-     */
-    virtual SignatureComputationData& diversifyKeyWithSpecificValue(
-        const std::vector<uint8_t>& diversifier) = 0;
+    virtual SignatureComputationData& withoutBusyMode() = 0;
 
     /**
      * Returns the data that was used to generate the signature. If the "SAM traceability" mode was
