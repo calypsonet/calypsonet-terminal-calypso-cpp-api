@@ -981,6 +981,8 @@ public:
      * @throw ReaderIOException If a communication error with the card reader or SAM reader occurs.
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
+     * @throw InvalidSignatureException If a signature associated to a prepared signature
+     *        verification SAM command is invalid.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
      * @throw InconsistentDataException If inconsistent data have been detected.
      * @throw SessionBufferOverflowException If a secure session is open and multiple session mode
@@ -1180,6 +1182,8 @@ public:
      * @throw ReaderIOException If a communication error with the card reader or SAM reader occurs.
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
+     * @throw InvalidSignatureException If a signature associated to a prepared signature
+     *        verification SAM command is invalid.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
      * @throw InconsistentDataException If inconsistent data have been detected.
      * @throw UnauthorizedKeyException If the card requires an unauthorized session key.
@@ -1246,6 +1250,8 @@ public:
      * @throw ReaderIOException If a communication error with the card reader or SAM reader occurs.
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
+     * @throw InvalidSignatureException If a signature associated to a prepared signature
+     *        verification SAM command is invalid.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
      * @throw InconsistentDataException If inconsistent data have been detected.
      * @throw SessionBufferOverflowException If multiple session mode is disabled and the session
