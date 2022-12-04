@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -12,32 +12,43 @@
 
 #pragma once
 
+#include <exception>
 #include <string>
 
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
+/* Keyple Core Util */
+#include "RuntimeException.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace keyple::core::util::cpp::exception;
+
 /**
- * Indicates an anomaly in the SAM.
+ * Indicates that an unexpected command status was returned by the card or SAM.
  *
- * <p>This can occur if the SAM is not Calypso compliant.
+ * <p>This can occur if the card or SAM is not Calypso compliant or if the card has refused the
+ * secure session closing.
  *
- * @since 1.0.0
+ * <p>For this last case, this is usually due to an incorrect SAM signature, or that the secure
+ * session has been altered by other APDU commands that would have interfered with it.
+ *
+ * <p>If a secure session was open, the card discarded all data by cancelling all updates except for
+ * PIN verification attempts.
+ *
+ * @since 1.2.0
  */
-class SamAnomalyException final : public CardTransactionException {
+class UnexpectedCommandStatusException : public RuntimeException {
 public:
     /**
      * @param message Message to identify the exception context.
      * @param cause The cause.
-     * @since 1.0.0
+     * @since 1.2.0
      */
-    SamAnomalyException(const std::string& message, const std::shared_ptr<Exception> cause)
-    : CardTransactionException(message, cause) {}
+    UnexpectedCommandStatusException(const std::string& message, 
+                                     const std::shared_ptr<Exception> cause)
+    : RuntimeException(message, cause) {}
 };
 
 }

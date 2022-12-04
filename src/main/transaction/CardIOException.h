@@ -14,36 +14,38 @@
 
 #include <string>
 
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
+/* Keyple Core Util */
+#include "RuntimeException.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace keyple::core::util::cpp::exception;
+
 /**
- * Indicates a communication error with the card.
+ * Indicates a communication error with the card (e.g. card removal, etc...).
  *
  * @since 1.0.0
  */
-class CardIOException final : public CardTransactionException {
+class CardIOException final : public RuntimeException {
 public:
     /**
-     * @param message The message to identify the exception context
+     * @param message The message to identify the exception context.
      * @since 1.0.0
      */
-    CardIOException(const std::string& message) : CardTransactionException(message) {}
+    CardIOException(const std::string& message) : RuntimeException(message) {}
 
     /**
-     * Encapsulates a lower level exception
+     * Encapsulates a lower level exception.
      *
      * @param message Message to identify the exception context.
      * @param cause The cause.
      * @since 1.0.0
      */
     CardIOException(const std::string& message, const std::shared_ptr<Exception> cause)
-    : CardTransactionException(message, cause) {}
+    : RuntimeException(message, cause) {}
 };
 
 }

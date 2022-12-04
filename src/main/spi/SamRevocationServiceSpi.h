@@ -12,41 +12,45 @@
 
 #pragma once
 
-#include <exception>
-#include <string>
+#include <cstdint>
+#include <vector>
 
-/* Keyple Core Util */
-#include "RuntimeException.h"
-
-namespace calypsonet {
-namespace terminal {
+namespace keyple {
+namespace card {
 namespace calypso {
-namespace transaction {
-
-using namespace keyple::core::util::cpp::exception;
+namespace spi {
 
 /**
- * Indicates a communication error with the SAM (e.g. timeout, network error, etc...).
+ * Service to be implemented in order to check dynamically if a SAM is revoked.
  *
- * @since 1.0.0
+ * @since 1.2.0
  */
-class SamIOException final : public CardTransactionException {
+class SamRevocationServiceSpi {
 public:
     /**
-     * @param message The message to identify the exception context.
-     * @since 1.0.0
+     * Checks if the SAM with the provided serial number is revoked or not.
+     *
+     * <p>Note: the provided SAM serial number can be complete (4 bytes) or partial (3 LSBytes).
+     *
+     * @param serialNumber The complete or partial SAM serial number to check.
+     * @return True if the SAM is revoked, otherwise false.
+     * @since 1.2.0
      */
-    SamIOException(const std::string& message) : RuntimeException(message) {}
+    virtual bool isSamRevoked(const std::vector<uint8_t>& serialNumber) const = 0;
 
     /**
-     * Encapsulates a lower level exception.
+     * Checks if the SAM with the provided serial number and the associated counter value is revoked
+     * or not.
      *
-     * @param message Message to identify the exception context.
-     * @param cause The cause.
-     * @since 1.0.0
+     * <p>Note: the provided SAM serial number can be complete (4 bytes) or partial (3 LSBytes).
+     *
+     * @param serialNumber The complete or partial SAM serial number to check.
+     * @param counterValue The SAM counter value.
+     * @return True if the SAM is revoked, otherwise false.
+     * @since 1.2.0
      */
-    SamIOException(const std::string& message, const std::shared_ptr<Exception> cause)
-    : RuntimeException(message, cause) {}
+    virtual bool isSamRevoked(const std::vector<uint8_t>& serialNumber, const int counterValue)
+        const = 0;
 };
 
 }

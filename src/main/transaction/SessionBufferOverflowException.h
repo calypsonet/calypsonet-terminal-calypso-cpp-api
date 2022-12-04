@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -12,42 +12,31 @@
 
 #pragma once
 
-#include <exception>
 #include <string>
 
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
+/* Keyple Core Util */
+#include "RuntimeException.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace keyple::core::util::cpp::exception;
+
 /**
- * Indicates that the card has correctly closed the secure session, but the support is not authentic
- * because the signature of the card is incorrect.
+ * Indicates that the secure session cannot be performed atomically because the session buffer
+ * capacity is not sufficient to handle all the prepared write commands.
  *
- * @since 1.0.0
+ * @since 1.2.0
  */
-class SessionAuthenticationException final : public CardTransactionException {
+class SessionBufferOverflowException final : public RuntimeException {
 public:
     /**
-     * @param message The message to identify the exception context
-     * @since 1.0.0
+     * @param message The message to identify the exception context.
+     * @since 1.2.0
      */
-    SessionAuthenticationException(const std::string& message)
-    : CardTransactionException(message) {}
-
-    /**
-     * Encapsulates lower level exception.
-     *
-     * @param message Message to identify the exception context.
-     * @param cause The cause.
-     * @since 1.0.0
-     */
-    SessionAuthenticationException(const std::string& message,
-                                   const std::shared_ptr<Exception> cause)
-    : CardTransactionException(message, cause) {}
+    SessionBufferOverflowException(const std::string& message) : RuntimeException(message) {}
 };
 
 }

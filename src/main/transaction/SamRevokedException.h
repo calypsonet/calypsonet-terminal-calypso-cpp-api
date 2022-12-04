@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -15,26 +15,28 @@
 #include <exception>
 #include <string>
 
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
+/* Keyple Core Util */
+#include "RuntimeException.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace keyple::core::util::cpp::exception;
+
 /**
  * Indicates that the SAM is revoked.
  *
  * @since 1.0.0
  */
-class SamRevokedException final : public CardTransactionException {
+class SamRevokedException final : public RuntimeException {
 public:
     /**
-     * @param message The message to identify the exception context
+     * @param message The message to identify the exception context.
      * @since 1.0.0
      */
-    SamRevokedException(const std::string& message) : CardTransactionException(message) {}
+    SamRevokedException(const std::string& message) : RuntimeException(message) {}
 };
 
 }

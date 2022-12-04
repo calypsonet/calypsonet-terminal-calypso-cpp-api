@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -12,32 +12,41 @@
 
 #pragma once
 
+#include <exception>
 #include <string>
 
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
+/* Keyple Core Util */
+#include "RuntimeException.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace keyple::core::util::cpp::exception;
+
 /**
- * Indicates an anomaly in the card.
+ * Indicates a communication error with the reader of the card or SAM.
  *
- * <p>This can occur if the card is not Calypso compliant.
- *
- * @since 1.0.0
+ * @since 1.2.0
  */
-class CardAnomalyException final : public CardTransactionException {
+class ReaderIOException : public RuntimeException {
 public:
     /**
+     * @param message The message to identify the exception context
+     * @since 1.2.0
+     */
+    ReaderIOException(const std::string& message) : RuntimeException(message) {}
+
+    /**
+     * Encapsulates a lower level exception
+     *
      * @param message Message to identify the exception context.
      * @param cause The cause.
-     * @since 1.0.0
+     * @since 1.2.0
      */
-    CardAnomalyException(const std::string& message, const std::shared_ptr<Exception> cause)
-    : CardTransactionException(message, cause) {}
+    ReaderIOException(const std::string& message, const std::shared_ptr<Exception> cause)
+    : RuntimeException(message, cause) {}
 };
 
 }

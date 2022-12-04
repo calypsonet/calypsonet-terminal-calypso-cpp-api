@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -15,29 +15,44 @@
 #include <exception>
 #include <string>
 
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
+/* Keyple Core Util */
+#include "RuntimeException.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace keyple::core::util::cpp::exception;
+
 /**
- * Indicates an inconsistency in the card data.
+ * Indicates that the card has correctly closed the secure session, but the card session is not
+ * authentic because the signature of the card is incorrect. This can happen in the following cases:
+ * <ul>
+ *   <li>The "Digest Authenticate" SAM command status is 6985h;
+ *   <li>The "SV Check" SAM command status is 6985h;
+ * </ul>
  *
- * <p>This can occur, for example, if data read in session is different from data read outside the
- * session.
- *
- * @since 1.0.0
+ * @since 1.2.0
  */
-class InconsistencyDataException final : public CardTransactionException {
+class InvalidCardSignatureException final : public RuntimeException {
 public:
     /**
      * @param message The message to identify the exception context
-     * @since 1.0.0
+     * @since 1.2.0
      */
-    InconsistencyDataException(const std::string& message) : CardTransactionException(message) {}
+    InvalidCardSignatureException(const std::string& message) : RuntimeException(message) {}
+
+    /**
+     * Encapsulates a lower level exception.
+     *
+     * @param message Message to identify the exception context.
+     * @param cause The cause.
+     * @since 1.2.0
+     */
+    InvalidCardSignatureException(const std::string& message,
+                                  const std::shared_ptr<Exception> cause)
+    : RuntimeException(message, cause) {}
 };
 
 }

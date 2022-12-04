@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -12,7 +12,6 @@
 
 #pragma once
 
-#include <exception>
 #include <string>
 
 /* Keyple Core Util */
@@ -26,26 +25,30 @@ namespace transaction {
 using namespace keyple::core::util::cpp::exception;
 
 /**
- * Parent abstract class of all Calypso card transaction functional exceptions.
+ * Indicates that the card has correctly closed the secure session, but that it is impossible to
+ * check the authenticity of the card session because the SAM is no more available (timeout, network
+ * problem, etc...).
  *
- * @since 1.0.0
+ * @since 1.2.0
  */
-class CardTransactionException : public RuntimeException {
-protected:
+class CardSignatureNotVerifiableException final : public RuntimeException {
+public:
     /**
      * @param message The message to identify the exception context
-     * @since 1.0.0
+     * @since 1.2.0
      */
-    CardTransactionException(const std::string& message) : RuntimeException(message) {}
+    CardSignatureNotVerifiableException(const std::string& message)
+    : RuntimeException(message) {}
 
     /**
-     * Encapsulates a lower level card transaction exception
+     * Encapsulates a lower level exception.
      *
      * @param message Message to identify the exception context.
      * @param cause The cause.
-     * @since 1.0.0
+     * @since 1.2.0
      */
-    CardTransactionException(const std::string& message, const std::shared_ptr<Exception> cause)
+    CardSignatureNotVerifiableException(const std::string& message, 
+                                        const std::shared_ptr<Exception> cause)
     : RuntimeException(message, cause) {}
 };
 

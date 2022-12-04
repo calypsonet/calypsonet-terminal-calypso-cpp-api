@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -15,26 +15,28 @@
 #include <exception>
 #include <string>
 
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
+/* Keyple Core Util */
+#include "RuntimeException.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace keyple::core::util::cpp::exception;
+
 /**
- * Indicates that the current card requires an unauthorized key.
+ * Indicates that the card requires an unauthorized session key.
  *
  * @since 1.0.0
  */
-class UnauthorizedKeyException final : public CardTransactionException {
+class UnauthorizedKeyException final : public RuntimeException {
 public:
     /**
-     * @param message The message to identify the exception context
+     * @param message The message to identify the exception context.
      * @since 1.0.0
      */
-    UnauthorizedKeyException(const std::string& message) : CardTransactionException(message) {}
+    UnauthorizedKeyException(const std::string& message) : RuntimeException(message) {}
 };
 
 }

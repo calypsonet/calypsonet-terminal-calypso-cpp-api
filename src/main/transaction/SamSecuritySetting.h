@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -12,33 +12,17 @@
 
 #pragma once
 
-#include <exception>
-#include <string>
-
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
-
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
 /**
- * Indicates a desynchronization of the APDU exchanges.
+ * Data to manage the security operations of a Calypso SAM transaction.
  *
- * <p>This means that the number of APDU requests is different from the number of APDU responses.
- *
- * @since 1.0.0
+ * @since 1.2.0
  */
-class DesynchronizedExchangesException final : public CardTransactionException {
-public:
-    /**
-     * @param message The message to identify the exception context
-     * @since 1.0.0
-     */
-    DesynchronizedExchangesException(const std::string& message)
-    : CardTransactionException(message) {}
-};
+class SamSecuritySetting final : public CommonSecuritySetting<SamSecuritySetting> {};
 
 }
 }

@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -12,41 +12,37 @@
 
 #pragma once
 
+#include <exception>
 #include <string>
 
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
+/* Keyple Core Util */
+#include "RuntimeException.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace keyple::core::util::cpp::exception;
+
 /**
- * Indicates that the card has correctly closed the secure session, but that it is impossible to
- * check the authenticity of the support because the SAM is no more available (timeout, network
- * problem,...).
+ * Indicates a detected security problem related to one of the following cases:
+ * <ul>
+ *   <li>A de-synchronization of the APDU exchanges. This means that the number of APDU responses is
+ *       different from the number of APDU requests;
+ *   <li>An inconsistency in the card data. This can happen, for example, if the data read in
+ *       session is different from the data read outside the session.
+ * </ul>
  *
- * @since 1.0.0
+ * @since 1.2.0
  */
-class AuthenticationNotVerifiedException final : public CardTransactionException {
+class SecurityException final : public RuntimeException {
 public:
     /**
-     * @param message The message to identify the exception context
-     * @since 1.0.0
+     * @param message The message to identify the exception context.
+     * @since 1.1.0
      */
-    AuthenticationNotVerifiedException(const std::string& message)
-    : CardTransactionException(message) {}
-
-    /**
-     * Encapsulates lower level exception.
-     *
-     * @param message Message to identify the exception context.
-     * @param cause The cause.
-     * @since 1.0.0
-     */
-    AuthenticationNotVerifiedException(const std::string& message, const std::exception& cause)
-    : CardTransactionException(message, cause) {}
+    SecurityException(const std::string& message) : RuntimeException(message) {}
 };
 
 }

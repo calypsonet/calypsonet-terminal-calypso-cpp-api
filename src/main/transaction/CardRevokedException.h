@@ -14,26 +14,28 @@
 
 #include <string>
 
-/* Calypsonet Terminal Calypso */
-#include "CardTransactionException.h"
+/* Keyple Core Util */
+#include "RuntimeException.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace keyple::core::util::cpp::exception;
+
 /**
  * Indicates that the card is revoked.
  *
  * @since 1.0.0
  */
-class CardRevokedException final : public CardTransactionException {
+class CardRevokedException final : public RuntimeException {
 public:
     /**
-     * @param message The message to identify the exception context
+     * @param message The message to identify the exception context.
      * @since 1.0.0
      */
-    CardRevokedException(const std::string& message) : CardTransactionException(message) {}
+    CardRevokedException(const std::string& message) : RuntimeException(message) {}
 };
 
 }

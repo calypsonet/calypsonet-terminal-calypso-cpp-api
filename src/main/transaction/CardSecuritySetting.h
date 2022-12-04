@@ -31,14 +31,11 @@ using namespace calypsonet::terminal::calypso::sam;
 using namespace calypsonet::terminal::reader;
 
 /**
- * Data to manage the security operations of a Calypso transaction.
- *
- * <p>Fluent setters allow to define all the required parameters, among which the resource profile
- * of the SAM card is the only mandatory one.
+ * Data to manage the security operations of a Calypso card transaction.
  *
  * @since 1.0.0
  */
-class CardSecuritySetting {
+class CardSecuritySetting : public CommonSecuritySetting<CardSecuritySetting> {
 public:
     /**
      * Defines the SAM and the reader through which it is accessible to be used to handle the
@@ -51,6 +48,7 @@ public:
      *        calypsonet::terminal::calypso::sam::CalypsoSam is equal to
      *        calypsonet::terminal::calypso::sam::CalypsoSam::ProductType::UNKNOWN.
      * @since 1.0.0
+     * @deprecated Use setControlSamResource(CardReader, CalypsoSam) instead.
      */
     virtual CardSecuritySetting& setSamResource(const std::shared_ptr<CardReader> samReader,
                                                 const std::shared_ptr<CalypsoSam> calypsoSam) = 0;
@@ -80,14 +78,6 @@ public:
      * @since 1.0.0
      */
     virtual CardSecuritySetting& enablePinPlainTransmission() = 0;
-
-    /**
-     * Enables the collection of transaction data for a later security audit.
-     *
-     * @return The current instance.
-     * @since 1.0.0
-     */
-    virtual CardSecuritySetting& enableTransactionAudit() = 0;
 
     /**
      * Enables the retrieval of both loading and debit log records.
