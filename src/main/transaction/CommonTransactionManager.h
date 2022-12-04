@@ -84,8 +84,7 @@ public:
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
-     * @throw SecurityException If a security error occurs (e.g. a de-synchronization of the APDU
-     *        exchanges, an inconsistency in the card data, etc...).
+     * @throw InconsistentDataException If inconsistent data have been detected.
      * @throw SessionBufferOverflowException If a secure session is open and multiple session mode
      *        is disabled and the session buffer capacity is not sufficient.
      * @throw CardSignatureNotVerifiableException If a secure session is open and multiple session

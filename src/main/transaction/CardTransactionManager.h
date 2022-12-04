@@ -197,7 +197,7 @@ public:
      * @param recordNumber The record to read.
      * @return The current instance.
      * @throw IllegalArgumentException If one of the provided arguments is out of range.
-     * @throws IllegalStateException If this method is invoked inside a secure session in contact
+     * @throw IllegalStateException If this method is invoked inside a secure session in contact
      *         mode.
      * @since 1.0.0
      * @deprecated Use prepareReadRecords(const uint8_t, const int) method instead.
@@ -303,8 +303,8 @@ public:
      * @param sfi The SFI of the EF to read.
      * @param recordNumber The record to read.
      * @return The current instance.
-     * @throws IllegalArgumentException If one of the provided arguments is out of range.
-     * @throws IllegalStateException If this method is invoked inside a secure session in contact
+     * @throw IllegalArgumentException If one of the provided arguments is out of range.
+     * @throw IllegalStateException If this method is invoked inside a secure session in contact
      *     mode.
      * @since 1.1.0
      */
@@ -336,7 +336,7 @@ public:
      * @param toRecordNumber The number of the last record to read.
      * @param recordSize The record length.
      * @return The current instance.
-     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareReadRecords(const uint8_t sfi,
@@ -371,8 +371,8 @@ public:
      * @param offset The offset in the records where to start reading (0 indicates the first byte).
      * @param nbBytesToRead The number of bytes to read from each record.
      * @return The current instance.
-     * @throws UnsupportedOperationException If this command is not supported by this card.
-     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @throw UnsupportedOperationException If this command is not supported by this card.
+     * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareReadRecordsPartially(const uint8_t sfi,
@@ -406,8 +406,8 @@ public:
      * @param offset The offset (0 indicates the first byte).
      * @param nbBytesToRead The number of bytes to read.
      * @return The current instance.
-     * @throws UnsupportedOperationException If this command is not supported by this card.
-     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @throw UnsupportedOperationException If this command is not supported by this card.
+     * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareReadBinary(const uint8_t sfi,
@@ -440,7 +440,7 @@ public:
      * @param sfi The SFI of the EF.
      * @param nbCountersToRead The number of counters to read.
      * @return The current instance.
-     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareReadCounter(const uint8_t sfi,
@@ -479,7 +479,7 @@ public:
      *
      * @param data The input/output data containing the parameters of the command.
      * @return The current instance.
-     * @throws IllegalArgumentException If the input data is inconsistent.
+     * @throw IllegalArgumentException If the input data is inconsistent.
      * @see SearchCommandData
      * @since 1.1.0
      */
@@ -578,8 +578,8 @@ public:
      * @param offset The offset (0 indicates the first byte).
      * @param data The new data.
      * @return The current instance.
-     * @throws UnsupportedOperationException If this command is not supported by this card.
-     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @throw UnsupportedOperationException If this command is not supported by this card.
+     * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareUpdateBinary(const uint8_t sfi,
@@ -599,8 +599,8 @@ public:
      * @param offset The offset (0 indicates the first byte).
      * @param data The data to write over the existing data.
      * @return The current instance.
-     * @throws UnsupportedOperationException If this command is not supported by this card.
-     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @throw UnsupportedOperationException If this command is not supported by this card.
+     * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareWriteBinary(const uint8_t sfi,
@@ -666,7 +666,7 @@ public:
      * @param decValue Value to subtract to the counter (defined as a positive int {@code <=}
      *        16777215 [FFFFFFh])
      * @return The current instance.
-     * @throws IllegalArgumentException If one of the provided argument is out of range.
+     * @throw IllegalArgumentException If one of the provided argument is out of range.
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareDecreaseCounter(const uint8_t sfi,
@@ -687,9 +687,9 @@ public:
      * @param counterNumberToDecValueMap The map containing the counter numbers to be decremented
      *        and their associated decrement values.
      * @return The current instance.
-     * @throws UnsupportedOperationException If the decrease multiple command is not available for
+     * @throw UnsupportedOperationException If the decrease multiple command is not available for
      *         this card.
-     * @throws IllegalArgumentException If one of the provided argument is out of range or if the
+     * @throw IllegalArgumentException If one of the provided argument is out of range or if the
      *         map is null or empty.
      * @since 1.1.0
      */
@@ -980,8 +980,7 @@ public:
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
-     * @throw SecurityException If a security error occurs (e.g. a de-synchronization of the APDU
-     *        exchanges, an inconsistency in the card data, etc...).
+     * @throw InconsistentDataException If inconsistent data have been detected.
      * @throw SessionBufferOverflowException If a secure session is open and multiple session mode
      *        is disabled and the session buffer capacity is not sufficient.
      * @throw CardSignatureNotVerifiableException If a secure session is open and multiple session
@@ -1021,8 +1020,7 @@ public:
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
-     * @throw SecurityException If a security error occurs (e.g. a de-synchronization of the APDU
-     *        exchanges, an inconsistency in the card data, etc...).
+     * @throw InconsistentDataException If inconsistent data have been detected.
      * @since 1.0.0
      */
     virtual CardTransactionManager& processVerifyPin(const std::vector<uint8_t>& pin) = 0;
@@ -1046,8 +1044,7 @@ public:
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
-     * @throw SecurityException If a security error occurs (e.g. a de-synchronization of the APDU
-     *        exchanges, an inconsistency in the card data, etc...).
+     * @throw InconsistentDataException If inconsistent data have been detected.
      * @since 1.0.0
      */
     virtual CardTransactionManager& processChangePin(const std::vector<uint8_t>& newPin) = 0;
@@ -1076,8 +1073,7 @@ public:
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
-     * @throw SecurityException If a security error occurs (e.g. a de-synchronization of the APDU
-     *        exchanges, an inconsistency in the card data, etc...).
+     * @throw InconsistentDataException If inconsistent data have been detected.
      * @since 1.1.0
      */
     virtual CardTransactionManager& processChangeKey(const uint8_t keyIndex,
@@ -1183,8 +1179,7 @@ public:
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
-     * @throw SecurityException If a security error occurs (e.g. a de-synchronization of the APDU
-     *        exchanges, an inconsistency in the card data, etc...).
+     * @throw InconsistentDataException If inconsistent data have been detected.
      * @throw UnauthorizedKeyException If the card requires an unauthorized session key.
      * @throw SessionBufferOverflowException If multiple session mode is disabled and the session
      *        buffer capacity is not sufficient.
@@ -1250,8 +1245,7 @@ public:
      * @throw CardIOException If a communication error with the card occurs.
      * @throw SamIOException If a communication error with the SAM occurs.
      * @throw UnexpectedCommandStatusException If a command returns an unexpected status.
-     * @throw SecurityException If a security error occurs (e.g. a de-synchronization of the APDU
-     *        exchanges, an inconsistency in the card data, etc...).
+     * @throw InconsistentDataException If inconsistent data have been detected.
      * @throw SessionBufferOverflowException If multiple session mode is disabled and the session
      *        buffer capacity is not sufficient.
      * @throw CardSignatureNotVerifiableException If session is correctly closed but the SAM is no
