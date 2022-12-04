@@ -107,10 +107,10 @@ public:
     /**
      * Gets the audit data of the transaction.
      *
-     * @return Null if there is no audit data.
-     * @since 1.0.0
+     * @return An empty list if there is no audit data.
+     * @since 1.2.0
      */
-    virtual const std::string getTransactionAuditData() const = 0;
+    virtual const std::vector<std::vector<uint8_t>>& getTransactionAuditData() const = 0;
 
     /**
      * Schedules the execution of a <b>Select File</b> command based on the file's LID.
