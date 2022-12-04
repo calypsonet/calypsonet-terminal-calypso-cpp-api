@@ -12,9 +12,6 @@
 
 #pragma once
 
-#include <exception>
-#include <string>
-
 /* Keyple Core Util */
 #include "RuntimeException.h"
 
@@ -26,22 +23,21 @@ namespace transaction {
 using namespace keyple::core::util::cpp::exception;
 
 /**
- * Indicates that the card has correctly closed the secure session, but the card session is not
- * authentic because the signature of the card is incorrect. This can happen in the following cases:
+ * Indicates that a signature is incorrect. This can happen in the following cases:
+ *
  * <ul>
- *   <li>The "Digest Authenticate" SAM command status is 6988h;
- *   <li>The "SV Check" SAM command status is 6988h;
+ *   <li>The "PSO Verify Signature" SAM command status is 6988h;
  * </ul>
  *
  * @since 1.2.0
  */
-class InvalidCardSignatureException final : public RuntimeException {
+class InvalidSignatureException : public RuntimeException {
 public:
     /**
-     * @param message The message to identify the exception context
+     * @param message The message to identify the exception context.
      * @since 1.2.0
      */
-    InvalidCardSignatureException(const std::string& message) : RuntimeException(message) {}
+    InvalidSignatureException(const std::string& message) : RuntimeException(message) {}
 
     /**
      * Encapsulates a lower level exception.
@@ -50,8 +46,7 @@ public:
      * @param cause The cause.
      * @since 1.2.0
      */
-    InvalidCardSignatureException(const std::string& message,
-                                  const std::shared_ptr<Exception> cause)
+    InvalidSignatureException(const std::string& message, const std::shared_ptr<Exception> cause)
     : RuntimeException(message, cause) {}
 };
 
