@@ -15,6 +15,9 @@
 #include <cstdint>
 #include <vector>
 
+/* Calypsonet Terminal Calypso */
+#include "CommonSignatureComputationData.h"
+
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
@@ -22,53 +25,14 @@ namespace transaction {
 
 /**
  * Contains the input/output data of the
- * CommonTransactionManager::prepareComputeSignature(SignatureComputationData) method.
+ * CommonTransactionManager::prepareComputeSignature(CommonSignatureComputationData)} method for
+ * traceable signature computation using the "PSO Compute Signature" SAM command.
  *
  * @since 1.2.0
  */
-classs SignatureComputationData {
-public
-    /**
-     * Sets the data to be signed and the KIF/KVC of the key to be used for the signature
-     * computation.
-     *
-     * @param data The data to be signed.
-     * @param kif The KIF of the key to be used for the signature computation.
-     * @param kvc The KVC of the key to be used for the signature computation.
-     * @return The current instance.
-     * @since 1.2.0
-     */
-    virtual SignatureComputationData& setData(const std::vector<uint8_t>& data, 
-                                              const uint8_t kif, 
-                                              const uint8_t kvc) = 0;
-
-    /**
-     * Sets the expected size of the signature in bytes, which can be between 1 and 8 bytes
-     * (optional).
-     *
-     * <p>By default, the signature will be generated on 8 bytes.
-     *
-     * <p>Note: the longer the signature, the more secure it is.
-     *
-     * @param size The expected size [1..8]
-     * @return The current instance.
-     * @since 1.2.0
-     */
-    virtual SignatureComputationData& setSignatureSize(const int size) = 0;
-
-    /**
-     * Sets a specific key diversifier to use before signing (optional).
-     *
-     * <p>By default, the key diversification is performed with the full serial number of the target
-     * card or SAM depending on the transaction context (Card or SAM transaction).
-     *
-     * @param diversifier The diversifier to be used (from 1 to 8 bytes long).
-     * @return The current instance.
-     * @since 1.2.0
-     */
-    virtual SignatureComputationData& setKeyDiversifier(const std::vector<uint8_t>& diversifier) 
-        = 0;
-
+class TraceableSignatureComputationData
+: public CommonSignatureComputationData<TraceableSignatureComputationData>{
+public:
     /**
      * Enables the "SAM traceability" mode to securely record in the data to sign the SAM serial
      * number and the value of the counter associated with the signing key.
@@ -88,9 +52,8 @@ public
      * @return The current instance.
      * @since 1.2.0
      */
-    virtual SignatureComputationData& withSamTraceabilityMode(const int offset, 
-                                                              const bool usePartialSamSerialNumber) 
-        = 0;
+    virtual TraceableSignatureComputationData& withSamTraceabilityMode(
+        const int offset, const bool usePartialSamSerialNumber) = 0;
 
     /**
      * Disables the "Busy" mode. When enabled, if the "PSO Verify Signature" command used to check
@@ -103,7 +66,7 @@ public
      * @return The current instance.
      * @since 1.2.0
      */
-    virtual SignatureComputationData& withoutBusyMode() = 0;
+    virtual TraceableSignatureComputationData& withoutBusyMode() = 0;
 
     /**
      * Returns the data that was used to generate the signature. If the "SAM traceability" mode was
@@ -114,16 +77,7 @@ public
      * @throws IllegalStateException If the command has not yet been processed.
      * @since 1.2.0
      */
-    const std::vector<uint8_t>& getSignedData() const = 0;
-
-    /**
-     * Returns the computed signature.
-     *
-     * @return A byte array of 1 to 8 bytes.
-     * @throws IllegalStateException If the command has not yet been processed.
-     * @since 1.2.0
-     */
-    const std::vector<uint8_t>& getSignature() const = 0;
+    virtual const std::vector<uint8_t>& getSignedData() const = 0;
 };
 
 }

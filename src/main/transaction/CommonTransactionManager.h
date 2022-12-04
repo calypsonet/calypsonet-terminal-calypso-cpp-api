@@ -49,10 +49,10 @@ public:
     virtual const std::vector<uint8_t>& getTransactionAuditData() const = 0;
 
     /**
-     * Schedules the execution of a "PSO Compute Signature" SAM command.
+     * Schedules the execution of a "Data Cipher" or "PSO Compute Signature" SAM command.
      *
      * <p>Once the command is processed, the result will be available in the provided input/output
-     * SignatureComputationData object.
+     * BasicSignatureComputationData or TraceableSignatureComputationData objects.
      * 
      * <p>The signature may be used for many purposes, for example:
      *
@@ -71,26 +71,31 @@ public:
      * @param data The input/output data containing the parameters of the command.
      * @return The current instance.
      * @throw IllegalArgumentException If the input data is inconsistent.
-     * @see SignatureComputationData
+     * @see CommonSignatureComputationData
+     * @see BasicSignatureComputationData
+     * @see TraceableSignatureComputationData
      * @since 1.2.0
      */
-    virtual T& prepareComputeSignature(std::shared_ptr<SignatureComputationData> data) = 0;
+    virtual T& prepareComputeSignature(std::shared_ptr<CommonSignatureComputationData> data) = 0;
 
     /**
-     * Schedules the execution of a "PSO Verify Signature" SAM command.
+     * Schedules the execution of a "Data Cipher" or "PSO Verify Signature" SAM command.
      *
      * <p>Once the command is processed, the result will be available in the provided input/output
-     * SignatureVerificationData object.
+     * BasicSignatureVerificationData or TraceableSignatureVerificationData object.
      *
      * @param data The input/output data containing the parameters of the command.
      * @return The current instance.
      * @throw IllegalArgumentException If the input data is inconsistent.
      * @throw SamRevokedException If the signature has been computed in "SAM traceability" mode and
-     *        the SAM revocation status check has been requested and the SAM is revoked.
-     * @see SignatureVerificationData
+     *        the SAM revocation status check has been requested and the SAM is revoked (for 
+     *        traceable signature only).
+     * @see CommonSignatureVerificationData
+     * @see BasicSignatureVerificationData
+     * @see TraceableSignatureVerificationData
      * @since 1.2.0
      */
-    virtual T& prepareVerifySignature(std::shared_ptr<SignatureVerificationData> data) = 0;
+    virtual T& prepareVerifySignature(std::shared_ptr<CommonSignatureVerificationData> data) = 0;
 
     /**
      * Process all previously prepared commands.

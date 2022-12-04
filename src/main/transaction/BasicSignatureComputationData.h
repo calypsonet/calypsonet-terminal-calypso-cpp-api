@@ -12,22 +12,28 @@
 
 #pragma once
 
+/* Calypsonet Terminal Calypso */
+#include "CommonSignatureComputationData.h"
+
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
 /**
- * Data to manage the security operations of a Calypso SAM transaction.
+ * Contains the input/output data of the 
+ * CommonTransactionManager::prepareComputeSignature(CommonSignatureComputationData)} method for
+ * basic signature computation using the "Data Cipher" SAM command.
  *
  * @since 1.2.0
  */
-class SamSecuritySetting final : public CommonSecuritySetting<SamSecuritySetting> {
+class BasicSignatureComputationData
+: public CommonSignatureComputationData<BasicSignatureComputationData> {
 public:
     /**
      * 
      */
-    virtual ~SamSecuritySetting() = default;
+    virtual ~BasicSignatureComputationData() = default;
 };
 
 }
