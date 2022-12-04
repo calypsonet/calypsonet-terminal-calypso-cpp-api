@@ -116,8 +116,6 @@ public:
      *
      * @return True if the signature is valid.
      * @throw IllegalStateException If the command has not yet been processed.
-     * @throw SamRevokedException If the signature was computed in "SAM traceability" mode and if
-     *        the verification of the SAM revocation status was requested and if the SAM is revoked.
      * @since 1.2.0
      */
     virtual bool isSignatureValid() const = 0;
