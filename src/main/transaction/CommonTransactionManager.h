@@ -24,11 +24,11 @@ namespace transaction {
  * Common service providing the high-level API to manage transactions with a Calypso card or SAM.
  *
  * @param <T> The type of the lowest level child object.
- * @param <E> The type of the lowest level child object of the associated {@link
+ * @param <S> The type of the lowest level child object of the associated {@link
  *     CommonSecuritySetting}.
  * @since 1.2.0
  */
-template <typename T, typename E>
+template <typename T, typename S>
 class CommonTransactionManager {
 public:
     /**
@@ -37,7 +37,7 @@ public:
      * @return Null if the transaction does not use security settings.
      * @since 1.2.0
      */
-    virtual const std::shared_ptr<E> getSecuritySetting() const = 0;
+    virtual const std::shared_ptr<S> getSecuritySetting() const = 0;
 
     /**
      * Returns the audit data of the transaction containing all APDU exchanges with the card and the

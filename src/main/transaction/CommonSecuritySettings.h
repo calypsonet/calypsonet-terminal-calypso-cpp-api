@@ -28,10 +28,10 @@ using namespace calypsonet::terminal::calypso::sam;
 /**
  * Common data to manage the security operations of a Calypso transaction.
  *
- * @param <T> The type of the lowest level child object.
+ * @param <S> The type of the lowest level child object.
  * @since 1.2.0
  */
-template <typename T>
+template <typename S>
 class CommonSecuritySetting {
 public:
     /**
@@ -45,7 +45,7 @@ public:
      *        CalypsoSam is equal to CalypsoSam::ProductType::UNKNOWN.
      * @since 1.2.0
      */
-    virtual T& setControlSamResource(const std::shared_ptr<CardReader> samReader, 
+    virtual S& setControlSamResource(const std::shared_ptr<CardReader> samReader, 
                                      const std::shared_ptr<CalypsoSam> calypsoSam) = 0;
 
     /**
@@ -56,7 +56,7 @@ public:
      * @throws IllegalArgumentException If the provided service is null.
      * @since 1.2.0
      */
-    virtual T& setSamRevocationService(const std::shared_ptr<SamRevocationServiceSpi> service) = 0;
+    virtual S& setSamRevocationService(const std::shared_ptr<SamRevocationServiceSpi> service) = 0;
 };
 
 }
