@@ -127,6 +127,23 @@ public:
     virtual bool isHce() const = 0;
 
     /**
+     * Tells if the current DF is invalidated or not.
+     *
+     * <p>The invalidation status is determined either from the response to the Select Application
+     * command or from the response to a Select File (DF) command.
+     *
+     * <p>For a PRIME_REVISION_3 card, a 6283h status word is returned in response to the Select
+     * Application command when the corresponding DF is invalidated.
+     *
+     * <p>For older Calypso cards it may be necessary to execute a Select File command in order to
+     * determine the invalidation status.
+     *
+     * @return True if the current DF has been invalidated.
+     * @since 1.0.0
+     */
+    virtual bool isDfInvalidated() const = 0;
+
+    /**
      * Gets the DF name as an array of bytes.
      *
      * <p>The DF name is the name of the application DF as defined in ISO/IEC 7816-4.
@@ -269,7 +286,7 @@ public:
      * <p>Note that if a secure session is actually running, then the map contains all session
      * modifications, which can be canceled if the secure session fails.
      *
-     * @return A not null reference (may be empty if no one EF is set).
+     * @return A not null reference (it may be empty if no one EF is set).
      * @since 1.0.0
      * @deprecated Since an EF may not have an SFI, the getFiles() method must be used instead.
      */
@@ -282,27 +299,10 @@ public:
      * <p>Note that if a secure session is actually running, then the set contains all session
      * modifications, which can be canceled if the secure session fails.
      *
-     * @return A not null reference (may be empty if no one EF is set).
+     * @return A not null reference (it may be empty if no one EF is set).
      * @since 1.1.0
      */
     virtual const std::vector<std::shared_ptr<ElementaryFile>>& getFiles() const = 0;
-
-    /**
-     * Tells if the current DF is  invalidated or not.
-     *
-     * <p>The invalidation status is determined either from the response to the Select Application
-     * command or from the response to a Select File (DF) command.
-     *
-     * <p>For a PRIME_REVISION_3 card, a 6283h status word is returned in response to the Select
-     * Application command when the corresponding DF is invalidated.
-     *
-     * <p>For older Calypso cards it may be necessary to execute a Select File command in order to
-     * determine the invalidation status.
-     *
-     * @return True if the current DF has been invalidated.
-     * @since 1.0.0
-     */
-    virtual bool isDfInvalidated() const = 0;
 
     /**
      * Tells if the last session with this card has been ratified or not.
@@ -312,6 +312,20 @@ public:
      * @since 1.0.0
      */
     virtual bool isDfRatified() const = 0;
+
+    /**
+     * Returns the transaction counter value provided in the output data of the last successful
+     * "Open Secure Session" command.
+     *
+     * <p>Please note that there are other commands that can decrement the original card counter
+     * (e.g. Change Key, Change/Verify PIN, SV Debit/Undebit/Reload). For these other commands, the
+     * counter value returned by this method will not be updated.
+     *
+     * @return A positive value.
+     * @throw IllegalStateException If no session has been opened.
+     * @since 1.2.0
+     */
+    virtual int getTransactionCounter() const = 0;
 
     /**
      * Indicates whether the Public Key Authentication is supported or not (since rev 3.3).
@@ -419,7 +433,7 @@ public:
     /**
      * Gets list of references to the SvDebitLogRecord read from the card.
      *
-     * @return A empty list if no log records are available.
+     * @return An empty list if no log records are available.
      * @since 1.0.0
      */
     virtual const std::vector<std::shared_ptr<SvDebitLogRecord>> getSvDebitLogAllRecords() const
