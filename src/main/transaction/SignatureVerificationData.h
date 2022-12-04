@@ -95,20 +95,34 @@ public:
     virtual SignatureVerificationData& withoutBusyMode() = 0;
 
     /**
-     * Requires to perform a key diversification before verifying the signature using the provided
-     * diversifier.
+     * Requests to perform a key diversification with the full serial number of the target card or
+     * SAM before verifying the signature.
      *
      * <p>Note: if the SAM traceability data is present, it is possible that the key used to compute
      * the signature was diversified according to the serial number of the signing SAM.
      *
-     * <p>By default, there will be no new diversification of the key.
+     * <p>By default, there is no diversification of the key.
      *
-     * @param keyDiversifier The diversifier to be used (8 bytes long).
      * @return The current instance.
      * @since 1.2.0
      */
-    virtual SignatureVerificationData& useKeyDiversifier(const std::vector<uint8_t>& keyDiversifier)
-        = 0;
+    virtual SignatureVerificationData& diversifyKeyWithTargetSerialNumber() = 0;
+
+    /**
+     * Requests to perform a key diversification with the provided diversifier before verifying the
+     * signature.
+     *
+     * <p>Note: if the SAM traceability data is present, it is possible that the key used to compute
+     * the signature was diversified according to the serial number of the signing SAM.
+     *
+     * <p>By default, there is no diversification of the key.
+     *
+     * @param diversifier The diversifier to be used (8 bytes long).
+     * @return The current instance.
+     * @since 1.2.0
+     */
+    virtual SignatureVerificationData& diversifyKeyWithSpecificValue(
+        const std::vector<uint8_t>& keyDiversifier) = 0;
 
     /**
      * Returns the result of the signature verification process by indicating if the signature is

@@ -479,6 +479,8 @@ public:
      *
      * @param data The input/output data containing the parameters of the command.
      * @return The current instance.
+     * @throw UnsupportedOperationException If the "Search Record Multiple" command is not available
+     *        for this card.
      * @throw IllegalArgumentException If the input data is inconsistent.
      * @see SearchCommandData
      * @since 1.1.0
