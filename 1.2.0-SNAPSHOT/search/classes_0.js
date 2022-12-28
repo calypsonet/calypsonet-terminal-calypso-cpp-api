@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['atomictransactionexception_0',['AtomicTransactionException',['../classcalypsonet_1_1terminal_1_1calypso_1_1transaction_1_1_atomic_transaction_exception.html',1,'calypsonet::terminal::calypso::transaction']]],
-  ['authenticationnotverifiedexception_1',['AuthenticationNotVerifiedException',['../classcalypsonet_1_1terminal_1_1calypso_1_1transaction_1_1_authentication_not_verified_exception.html',1,'calypsonet::terminal::calypso::transaction']]]
+  ['basicsignaturecomputationdata_0',['BasicSignatureComputationData',['../classcalypsonet_1_1terminal_1_1calypso_1_1transaction_1_1_basic_signature_computation_data.html',1,'calypsonet::terminal::calypso::transaction']]],
+  ['basicsignatureverificationdata_1',['BasicSignatureVerificationData',['../classcalypsonet_1_1terminal_1_1calypso_1_1transaction_1_1_basic_signature_verification_data.html',1,'calypsonet::terminal::calypso::transaction']]]
 ];

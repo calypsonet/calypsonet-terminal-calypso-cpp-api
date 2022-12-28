@@ -1,6 +1,8 @@
 <map id="/github/workspace/src/main/sam/CalypsoSam.h" name="/github/workspace/src/main/sam/CalypsoSam.h">
-<area shape="rect" id="node1" title=" " alt="" coords="149,5,320,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="256,5,427,47"/>
 <area shape="rect" id="node2" href="$_calypso_sam_selection_8h.html" title=" " alt="" coords="5,102,229,143"/>
-<area shape="rect" id="node3" href="$_card_security_setting_8h.html" title=" " alt="" coords="253,95,453,151"/>
-<area shape="rect" id="node4" href="$_card_transaction_manager_8h.html" title=" " alt="" coords="243,199,464,255"/>
+<area shape="rect" id="node3" href="$_card_security_setting_8h.html" title=" " alt="" coords="241,199,441,255"/>
+<area shape="rect" id="node5" href="$_common_security_setting_8h.html" title=" " alt="" coords="303,95,529,151"/>
+<area shape="rect" id="node6" href="$_sam_transaction_manager_8h.html" title=" " alt="" coords="553,95,775,151"/>
+<area shape="rect" id="node4" href="$_card_transaction_manager_8h.html" title=" " alt="" coords="231,303,452,359"/>
 </map>
