@@ -30,10 +30,10 @@ namespace transaction {
  * @since 1.2.0
  */
 class TraceableSignatureVerificationData
-: public CommonSignatureVerificationData<TraceableSignatureVerificationData> {
+: virtual public CommonSignatureVerificationData<TraceableSignatureVerificationData> {
 public:
     /**
-     * Indicates that the signature has been computed in "SAM traceability" mode and therefore 
+     * Indicates that the signature has been computed in "SAM traceability" mode and therefore
      * whether the revocation status of the signing SAM should be checked or not.
      *
      * <p>By default, the signature is not supposed to have been computed in "SAM traceability"
@@ -43,7 +43,7 @@ public:
      * @param isPartialSamSerialNumber True if only the 3 LSBytes of the SAM serial number have been
      *        used.
      * @param checkSamRevocationStatus True if it is requested to check if the SAM is revoked or
-     *        not. If true, then the SamRevocationServiceSpi service must be registered in the 
+     *        not. If true, then the SamRevocationServiceSpi service must be registered in the
      *        security settings using the
      *        CommonSecuritySetting::setSamRevocationService(SamRevocationServiceSpi) method.
      * @return The current instance.
@@ -53,8 +53,8 @@ public:
      * @since 1.2.0
      */
     virtual TraceableSignatureVerificationData& withSamTraceabilityMode(
-        const int offset, 
-        const bool isPartialSamSerialNumber, 
+        const int offset,
+        const bool isPartialSamSerialNumber,
         const bool checkSamRevocationStatus) = 0;
 
     /**

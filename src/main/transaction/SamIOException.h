@@ -30,7 +30,7 @@ using namespace keyple::core::util::cpp::exception;
  *
  * @since 1.0.0
  */
-class SamIOException final : public CardTransactionException {
+class SamIOException final : public RuntimeException {
 public:
     /**
      * @param message The message to identify the exception context.

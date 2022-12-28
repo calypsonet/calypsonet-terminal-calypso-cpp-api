@@ -22,10 +22,10 @@ namespace transaction {
  *
  * @since 1.2.0
  */
-class SamSecuritySetting final : public CommonSecuritySetting<SamSecuritySetting> {
+class SamSecuritySetting : virtual public CommonSecuritySetting<SamSecuritySetting> {
 public:
     /**
-     * 
+     *
      */
     virtual ~SamSecuritySetting() = default;
 };

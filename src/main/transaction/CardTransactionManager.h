@@ -19,6 +19,7 @@
 /* Calypsonet Terminal Calypso */
 #include "CalypsoCard.h"
 #include "CardSecuritySetting.h"
+#include "CommonTransactionManager.h"
 #include "GetDataTag.h"
 #include "SearchCommandData.h"
 #include "SelectFileControl.h"
@@ -38,6 +39,7 @@ namespace transaction {
 
 using namespace calypsonet::terminal::calypso;
 using namespace calypsonet::terminal::calypso::card;
+using namespace calypsonet::terminal::calypso::transaction;
 using namespace calypsonet::terminal::reader;
 
 /**
@@ -77,10 +79,10 @@ using namespace calypsonet::terminal::reader;
  * @since 1.0.0
  */
 class CardTransactionManager
-: public CommonTransactionManager<CardTransactionManager, CardSecuritySetting> {
+: virtual public CommonTransactionManager<CardTransactionManager, CardSecuritySetting> {
 public:
     /**
-     * Gets the reader used to communicate with the target card on which the transaction is 
+     * Gets the reader used to communicate with the target card on which the transaction is
      * performed.
      *
      * @return A not null reference.
@@ -219,7 +221,7 @@ public:
      *   <li>Outside a secure session (best effort mode): the following "process" command will not
      *       fail whatever the existence of the targeted file or record (the {@link CalypsoCard}
      *       object may not be filled).
-     *   <li>Inside a secure session (strict mode): the following "process" command will fail if 
+     *   <li>Inside a secure session (strict mode): the following "process" command will fail if
      *       the targeted file or record does not exist (the {@link CalypsoCard} object is always
      *       filled or an exception is raised when the reading failed).<br>
      *       Invalid parameters could lead to additional exchanges with the card and thus corrupt
@@ -308,7 +310,7 @@ public:
      *     mode.
      * @since 1.1.0
      */
-    virtual CardTransactionManager& prepareReadRecord(const uint8_t sfi, 
+    virtual CardTransactionManager& prepareReadRecord(const uint8_t sfi,
                                                       const uint8_t recordNumber)  = 0;
 
     /**
@@ -772,12 +774,12 @@ public:
      * @throw IllegalStateException In one of the following cases:
      *        <ul>
      *          <li>Another SV command was already prepared inside the same secure session.
-     *          <li>The SV command is not placed in the first position in the list of prepared 
+     *          <li>The SV command is not placed in the first position in the list of prepared
      *              commands.
      *          <li>The SV command does not follow a "SV Get" command.
      *          <li>The command and the SV operation are not consistent.
      *        </ul>
-     * 
+     *
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvReload(const int amount,
@@ -801,12 +803,12 @@ public:
      * @throw IllegalStateException In one of the following cases:
      *        <ul>
      *          <li>Another SV command was already prepared inside the same secure session.
-     *          <li>The SV command is not placed in the first position in the list of prepared 
+     *          <li>The SV command is not placed in the first position in the list of prepared
      *              commands.
      *          <li>The SV command does not follow a "SV Get" command.
      *          <li>The command and the SV operation are not consistent.
      *        </ul>
-     * 
+     *
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvReload(const int amount) = 0;
@@ -834,12 +836,12 @@ public:
      *        <ul>
      *          <li>New value is negative and negative balances are not allowed.
      *          <li>Another SV command was already prepared inside the same secure session.
-     *          <li>The SV command is not placed in the first position in the list of prepared 
+     *          <li>The SV command is not placed in the first position in the list of prepared
      *              commands.
      *          <li>The SV command does not follow a "SV Get" command.
      *          <li>The command and the SV operation are not consistent.
      *        </ul>
-     * 
+     *
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvDebit(const int amount,
@@ -874,12 +876,12 @@ public:
      *        <ul>
      *          <li>New value is negative and negative balances are not allowed.
      *          <li>Another SV command was already prepared inside the same secure session.
-     *          <li>The SV command is not placed in the first position in the list of prepared 
+     *          <li>The SV command is not placed in the first position in the list of prepared
      *              commands.
      *          <li>The SV command does not follow a "SV Get" command.
      *          <li>The command and the SV operation are not consistent.
      *        </ul>
-     * 
+     *
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvDebit(const int amount) = 0;

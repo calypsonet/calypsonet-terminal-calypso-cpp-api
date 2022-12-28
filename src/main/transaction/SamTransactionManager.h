@@ -13,13 +13,20 @@
 #pragma once
 
 /* Calypsonet Terminal Calypso */
+#include "CalypsoSam.h"
 #include "CommonTransactionManager.h"
 #include "SamSecuritySetting.h"
+
+/* Calypsonet Terminal Reader */
+#include "CardReader.h"
 
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
+
+using namespace calypsonet::terminal::calypso::sam;
+using namespace calypsonet::terminal::reader;
 
 /**
  * Service providing the high-level API to manage transactions with a Calypso SAM.
@@ -44,8 +51,13 @@ namespace transaction {
  * @since 1.2.0
  */
 class SamTransactionManager
-: public CommonTransactionManager<SamTransactionManager, SamSecuritySetting> {
+: virtual public CommonTransactionManager<SamTransactionManager, SamSecuritySetting> {
 public:
+    /**
+     *
+     */
+    virtual ~SamTransactionManager() = default;
+
     /**
      * Gets the reader used to communicate with the target SAM on which the transaction is
      * performed.
@@ -53,7 +65,7 @@ public:
      * @return A not null reference.
      * @since 1.2.0
      */
-    virtual CardReader getSamReader() const = 0;
+    virtual const std::shared_ptr<CardReader> getSamReader() const = 0;
 
     /**
      * Gets the target SAM on which the transaction is performed.
@@ -62,7 +74,7 @@ public:
      *         CalypsoSam::ProductType::UNKNOWN.
      * @since 1.2.0
      */
-    virtual CalypsoSam getCalypsoSam() const = 0;
+    virtual const std::shared_ptr<CalypsoSam> getCalypsoSam() const = 0;
 };
 
 }

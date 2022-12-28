@@ -15,22 +15,37 @@
 #include <cstdint>
 #include <vector>
 
+/* Calypsonet Terminal Calypso */
+#include "CommonSignatureComputationData.h"
+#include "CommonSignatureVerificationData.h"
+
+/* Keyple Core Util */
+#include "Any.h"
+
 namespace calypsonet {
 namespace terminal {
 namespace calypso {
 namespace transaction {
 
+using namespace calypsonet::terminal::calypso::transaction;
+using namespace keyple::core::util::cpp;
+
 /**
  * Common service providing the high-level API to manage transactions with a Calypso card or SAM.
  *
  * @param <T> The type of the lowest level child object.
- * @param <S> The type of the lowest level child object of the associated {@link
- *     CommonSecuritySetting}.
+ * @param <S> The type of the lowest level child object of the associated CommonSecuritySetting.
+ * @param <D> The type of the Derived class which implements prepareComputeSignature().
  * @since 1.2.0
  */
 template <typename T, typename S>
 class CommonTransactionManager {
 public:
+    /**
+     *
+     */
+    virtual ~CommonTransactionManager() = default;
+
     /**
      * Returns the settings defining the security parameters of the transaction.
      *
@@ -46,14 +61,14 @@ public:
      * @return An empty list if there is no audit data.
      * @since 1.2.0
      */
-    virtual const std::vector<uint8_t>& getTransactionAuditData() const = 0;
+    virtual const std::vector<std::vector<uint8_t>>& getTransactionAuditData() const = 0;
 
     /**
      * Schedules the execution of a "Data Cipher" or "PSO Compute Signature" SAM command.
      *
      * <p>Once the command is processed, the result will be available in the provided input/output
      * BasicSignatureComputationData or TraceableSignatureComputationData objects.
-     * 
+     *
      * <p>The signature may be used for many purposes, for example:
      *
      * <ul>
@@ -76,7 +91,7 @@ public:
      * @see TraceableSignatureComputationData
      * @since 1.2.0
      */
-    virtual T& prepareComputeSignature(std::shared_ptr<CommonSignatureComputationData> data) = 0;
+    virtual T& prepareComputeSignature(const any data) = 0;
 
     /**
      * Schedules the execution of a "Data Cipher" or "PSO Verify Signature" SAM command.
@@ -88,14 +103,14 @@ public:
      * @return The current instance.
      * @throw IllegalArgumentException If the input data is inconsistent.
      * @throw SamRevokedException If the signature has been computed in "SAM traceability" mode and
-     *        the SAM revocation status check has been requested and the SAM is revoked (for 
+     *        the SAM revocation status check has been requested and the SAM is revoked (for
      *        traceable signature only).
      * @see CommonSignatureVerificationData
      * @see BasicSignatureVerificationData
      * @see TraceableSignatureVerificationData
      * @since 1.2.0
      */
-    virtual T& prepareVerifySignature(std::shared_ptr<CommonSignatureVerificationData> data) = 0;
+    virtual T& prepareVerifySignature(const any data) = 0;
 
     /**
      * Process all previously prepared commands.
@@ -118,7 +133,7 @@ public:
      *        incorrect.
      * @since 1.2.0
      */
-    T& processCommands();
+    virtual T& processCommands() = 0;
 };
 
 }

@@ -28,12 +28,12 @@ namespace transaction {
  * @since 1.2.0
  */
 class BasicSignatureVerificationData
-: public CommonSignatureVerificationData<BasicSignatureVerificationData> {
+: virtual public CommonSignatureVerificationData<BasicSignatureVerificationData> {
 public:
     /**
-     * 
+     *
      */
-    virtual ~BasicSignatureVerificationData() = default;
+    virtual ~BasicSignatureVerificationData() {}
 };
 
 }

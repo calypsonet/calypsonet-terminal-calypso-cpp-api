@@ -21,17 +21,17 @@ namespace calypso {
 namespace transaction {
 
 /**
- * Contains the input/output data of the 
+ * Contains the input/output data of the
  * CommonTransactionManager::prepareComputeSignature(CommonSignatureComputationData)} method for
  * basic signature computation using the "Data Cipher" SAM command.
  *
  * @since 1.2.0
  */
 class BasicSignatureComputationData
-: public CommonSignatureComputationData<BasicSignatureComputationData> {
+: virtual public CommonSignatureComputationData<BasicSignatureComputationData> {
 public:
     /**
-     * 
+     *
      */
     virtual ~BasicSignatureComputationData() = default;
 };

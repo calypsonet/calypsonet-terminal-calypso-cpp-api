@@ -21,8 +21,8 @@ namespace calypso {
 namespace transaction {
 
 /**
- * Contains the input/output data of the {@link
- * CommonTransactionManager#prepareComputeSignature(CommonSignatureComputationData)} method for
+ * Contains the input/output data of the
+ * CommonTransactionManager::prepareComputeSignature(CommonSignatureComputationData) method for
  * common signature computation modes.
  *
  * @param <T> The type of the lowest level child object.
@@ -54,7 +54,7 @@ public:
      * @return The current instance.
      * @since 1.2.0
      */
-    virtual T& setSignatureSize(const int size);
+    virtual T& setSignatureSize(const int size) = 0;
 
     /**
      * Sets a specific key diversifier to use before signing (optional).

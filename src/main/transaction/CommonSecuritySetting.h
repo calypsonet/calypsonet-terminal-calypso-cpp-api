@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -12,8 +12,11 @@
 
 #pragma once
 
+#include <memory>
+
 /* Calypsonet Terminal Calypso */
 #include "CalypsoSam.h"
+#include "SamRevocationServiceSpi.h"
 
 /* Calypsonet Terminal Reader */
 #include "CardReader.h"
@@ -24,6 +27,8 @@ namespace calypso {
 namespace transaction {
 
 using namespace calypsonet::terminal::calypso::sam;
+using namespace calypsonet::terminal::calypso::spi;
+using namespace calypsonet::terminal::reader;
 
 /**
  * Common data to manage the security operations of a Calypso transaction.
@@ -45,7 +50,7 @@ public:
      *        CalypsoSam is equal to CalypsoSam::ProductType::UNKNOWN.
      * @since 1.2.0
      */
-    virtual S& setControlSamResource(const std::shared_ptr<CardReader> samReader, 
+    virtual S& setControlSamResource(const std::shared_ptr<CardReader> samReader,
                                      const std::shared_ptr<CalypsoSam> calypsoSam) = 0;
 
     /**

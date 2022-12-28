@@ -16,6 +16,7 @@
 
 /* Calypsonet Terminal Calypso */
 #include "CalypsoSam.h"
+#include "CommonSecuritySetting.h"
 #include "WriteAccessLevel.h"
 
 /* Calypsonet Terminal Reader */
@@ -35,7 +36,7 @@ using namespace calypsonet::terminal::reader;
  *
  * @since 1.0.0
  */
-class CardSecuritySetting : public CommonSecuritySetting<CardSecuritySetting> {
+class CardSecuritySetting : virtual public CommonSecuritySetting<CardSecuritySetting> {
 public:
     /**
      * Defines the SAM and the reader through which it is accessible to be used to handle the
@@ -174,7 +175,7 @@ public:
      * @return The current instance.
      * @since 1.0.0
      */
-    virtual CardSecuritySetting& setPinVerificationCipheringKey(const uint8_t kif, 
+    virtual CardSecuritySetting& setPinVerificationCipheringKey(const uint8_t kif,
                                                                 const uint8_t kvc) = 0;
 
     /**
@@ -187,7 +188,7 @@ public:
      * @return The current instance.
      * @since 1.0.0
      */
-    virtual CardSecuritySetting& setPinModificationCipheringKey(const uint8_t kif, 
+    virtual CardSecuritySetting& setPinModificationCipheringKey(const uint8_t kif,
                                                                 const uint8_t kvc) = 0;
 };
 

@@ -21,7 +21,7 @@ namespace calypso {
 namespace transaction {
 
 /**
- * Contains the input/output data of the 
+ * Contains the input/output data of the
  * CommonTransactionManager::prepareVerifySignature(CommonSignatureVerificationData) method for
  * common signature verification modes.
  *
@@ -42,9 +42,9 @@ public:
      * @return The current instance.
      * @since 1.2.0
      */
-    virtual T& setData(const std::vector<uint8_t>& data, 
-                       const std::vector<uint8_t>& signature, 
-                       const uint8_t kif, 
+    virtual T& setData(const std::vector<uint8_t>& data,
+                       const std::vector<uint8_t>& signature,
+                       const uint8_t kif,
                        const uint8_t kvc) = 0;
 
     /**
@@ -64,10 +64,10 @@ public:
      * valid or not.
      *
      * @return True if the signature is valid.
-     * @throws IllegalStateException If the command has not yet been processed.
+     * @throw IllegalStateException If the command has not yet been processed.
      * @since 1.2.0
      */
-    bool isSignatureValid() const = 0;
+    virtual bool isSignatureValid() const = 0;
 };
 
 }

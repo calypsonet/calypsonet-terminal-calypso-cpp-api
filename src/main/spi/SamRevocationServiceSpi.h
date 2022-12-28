@@ -15,8 +15,8 @@
 #include <cstdint>
 #include <vector>
 
-namespace keyple {
-namespace card {
+namespace calypsonet {
+namespace terminal {
 namespace calypso {
 namespace spi {
 
