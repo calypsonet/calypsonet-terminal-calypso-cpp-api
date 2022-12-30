@@ -1,13 +1,11 @@
-name: Publish API documentation
+name: Publish API documentation (release)
 
 on:
-  push:
-    branches:
-      - main
-      - doxygen
+  release:
+    types: [published]
 
 jobs:
-  publish-doc:
+  publish-doc-release:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code from ${{ github.repository }}/${{ github.ref }}
@@ -18,10 +16,10 @@ jobs:
         run: chmod +x ./.github/scripts/*.sh
       - name: Check version
         working-directory: .
-        run: ./.github/scripts/check_version.sh
+        run: ./.github/scripts/check_version.sh $(echo "${{ github.ref }}" | sed -e "s,^refs/tags/,,")
       - name: Patch Doxyfile
         working-directory: .
-        run: ./.github/scripts/patch_doxyfile.sh
+        run: ./.github/scripts/patch_doxyfile.sh $(echo "${{ github.ref }}" | sed -e "s,^refs/tags/,,")
       - name: Generate project documentation with Doxygen
         uses: mattnotmitt/doxygen-action@v1.9.2
         with:
@@ -29,7 +27,7 @@ jobs:
           doxyfile-path: ./Doxyfile
       - name: Prepare Doxygen doc page locally
         working-directory: .
-        run: ./.github/scripts/prepare_doxygen.sh
+        run: ./.github/scripts/prepare_doxygen.sh $(echo "${{ github.ref }}" | sed -e "s,^refs/tags/,,")
       - name: Deploy Doxygen documentation to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
