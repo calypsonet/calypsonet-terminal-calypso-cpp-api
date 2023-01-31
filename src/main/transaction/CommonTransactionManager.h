@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2023 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -27,7 +27,6 @@ namespace terminal {
 namespace calypso {
 namespace transaction {
 
-using namespace calypsonet::terminal::calypso::transaction;
 using namespace keyple::core::util::cpp;
 
 /**
