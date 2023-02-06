@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2023 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -39,7 +39,7 @@ private:
     CalypsoApiProperties() {}
 };
 
-const std::string CalypsoApiProperties::VERSION = "1.2";
+const std::string CalypsoApiProperties::VERSION = "1.3";
 
 }
 }

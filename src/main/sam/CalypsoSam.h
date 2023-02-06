@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2022 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2023 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -46,6 +46,13 @@ public:
          * @since 1.0.0
          */
         SAM_C1,
+
+        /**
+         * SAM C1 HSM
+         *
+         * @since 1.3.0
+         */
+        HSM_C1,
 
         /**
          * SAM S1E1
