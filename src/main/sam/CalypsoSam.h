@@ -154,42 +154,6 @@ public:
      * @since 1.0.0
      */
     virtual uint8_t getSoftwareRevision() const = 0;
-
-    /**
-     * Returns the value of an event counter.
-     *
-     * @param eventCounterNumber The number of the event counter (in range [0..26]).
-     * @return null if the event counter value is not set.
-     * @since 1.4.0
-     */
-    virtual std::shared_ptr<int> getEventCounter(const int eventCounterNumber) const = 0;
-
-    /**
-     * Returns the value of known event counters in a sorted map where key is the counter
-     * number and value is the counter value.
-     *
-     * @return a not null map.
-     * @since 1.4.0
-     */
-    virtual const std::map<int, int>& getEventCounters() const = 0;
-
-    /**
-     * Returns the value of an event ceiling.
-     *
-     * @param eventCeilingNumber The number of the event ceiling (in range [0..26]).
-     * @return null if the event ceiling value is not set.
-     * @since 1.4.0
-     */
-    virtual std::shared_ptr<int> getEventCeiling(const int eventCeilingNumber) const = 0;
-
-    /**
-     * Returns the value of known event ceilings in a sorted map where key is the ceiling
-     * number and value is the ceiling value.
-     *
-     * @return a not null map.
-     * @since 1.4.0
-     */
-    virtual const std::map<int, int>& getEventCeilings() const = 0;
 };
 
 inline std::ostream& operator<<(std::ostream& os, const CalypsoSam::ProductType& pt)
