@@ -994,6 +994,8 @@ public:
      * @throw InvalidCardSignatureException If a secure session is open and multiple session mode is
      *        enabled and an intermediate session is correctly closed but the card signature is
      *        incorrect.
+     * @throw SelectFileException If a "Select File" prepared card command indicated that the file
+     *        was not found.
      * @since 1.0.0
      * @deprecated Use processCommands() instead.
      */
@@ -1195,6 +1197,8 @@ public:
      *        the card signature.
      * @throw InvalidCardSignatureException If multiple session mode is enabled and an intermediate
      *        session is correctly closed but the card signature is incorrect.
+     * @throw SelectFileException If a "Select File" prepared card command indicated that the file
+     *        was not found.
      * @since 1.0.0
      */
     virtual CardTransactionManager& processOpening(const WriteAccessLevel writeAccessLevel) = 0;

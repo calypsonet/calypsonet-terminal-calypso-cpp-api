@@ -130,6 +130,8 @@ public:
      * @throw InvalidCardSignatureException If a secure session is open and multiple session mode is
      *        enabled and an intermediate session is correctly closed but the card signature is
      *        incorrect.
+     * @throw SelectFileException If a "Select File" prepared card command indicated that the file
+     *        was not found.
      * @since 1.2.0
      */
     virtual T& processCommands() = 0;
