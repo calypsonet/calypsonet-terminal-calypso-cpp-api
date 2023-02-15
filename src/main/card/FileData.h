@@ -1,5 +1,5 @@
 /**************************************************************************************************
- * Copyright (c) 2021 Calypso Networks Association https://calypsonet.org/                        *
+ * Copyright (c) 2023 Calypso Networks Association https://calypsonet.org/                        *
  *                                                                                                *
  * See the NOTICE file(s) distributed with this work for additional information regarding         *
  * copyright ownership.                                                                           *
@@ -66,7 +66,7 @@ public:
     /**
      * Gets a reference to all known records content.
      *
-     * @return a not null map eventually empty if there's no content.
+     * @return a not null map possibly empty if there's no content.
      * @since 1.0.0
      */
     virtual const std::map<const uint8_t, std::vector<uint8_t>>& getAllRecordsContent() const = 0;
