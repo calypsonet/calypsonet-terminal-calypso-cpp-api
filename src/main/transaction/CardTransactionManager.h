@@ -621,6 +621,11 @@ public:
      * processClosing(), the counter must have been read previously otherwise an
      * IllegalStateException will be raised during the execution of processClosing().
      *
+     *
+     * <p>Note 3: if several counters of the same file have to be incremented at the same time of
+     * the transaction, it is recommended to use the method prepareIncreaseCounters() for
+     * optimization reasons.
+     *
      * @param sfi SFI of the EF to select.
      * @param counterNumber The number of the counter (must be zero in case of a simulated counter).
      * @param incValue Value to add to the counter (defined as a positive int {@code <=} 16777215
@@ -634,8 +639,10 @@ public:
                                                            const int incValue) = 0;
 
     /**
-     * Schedules the execution of a <b>Increase Multiple</b> command to increase multiple target
-     * counters at the same time.
+     * Schedules the execution of a <b>Increase Multiple</b> command or multiple <b>Increase</b>
+     * commands to increase multiple target counters at the same time.
+     *
+     * <p>The decision to execute one or the other command is made according to the type of card.
      *
      * <p>Note 1: CalypsoCard is updated with the provided input data.
      *
@@ -647,8 +654,6 @@ public:
      * @param counterNumberToIncValueMap The map containing the counter numbers to be incremented
      *        and their associated increment values.
      * @return The current instance.
-     * @throw UnsupportedOperationException If the increase multiple command is not available for
-     *        this card.
      * @throw IllegalArgumentException If one of the provided argument is out of range or if the map
      *        is null or empty.
      * @since 1.1.0
@@ -666,6 +671,10 @@ public:
      * processClosing(), the counter must have been read previously otherwise an
      * IllegalStateException} will be raised during the execution of processClosing().
      *
+     * <p>Note 3: if several counters of the same file have to be decremented at the same time of
+     * the transaction, it is recommended to use the method prepareDecreaseCounters() for
+     * optimization reasons.
+     *
      * @param sfi SFI of the EF to select.
      * @param counterNumber The number of the counter (must be zero in case of a simulated counter).
      * @param decValue Value to subtract to the counter (defined as a positive int {@code <=}
@@ -679,8 +688,10 @@ public:
                                                            const int decValue) = 0;
 
     /**
-     * Schedules the execution of a <b>Decrease Multiple</b> command to decrease multiple target
-     * counters at the same time.
+     * Schedules the execution of a <b>Decrease Multiple</b> command or multiple <b>Decrease</b>
+     * commands to decrease multiple target counters at the same time.
+     *
+     * <p>The decision to execute one or the other command is made according to the type of card.
      *
      * <p>Note 1: CalypsoCard is updated with the provided input data.
      *
@@ -692,8 +703,6 @@ public:
      * @param counterNumberToDecValueMap The map containing the counter numbers to be decremented
      *        and their associated decrement values.
      * @return The current instance.
-     * @throw UnsupportedOperationException If the decrease multiple command is not available for
-     *         this card.
      * @throw IllegalArgumentException If one of the provided argument is out of range or if the
      *         map is null or empty.
      * @since 1.1.0
@@ -913,7 +922,7 @@ public:
      * CalypsoCard#getSvDebitLogLastRecord(), CalypsoCard#getSvDebitLogAllRecords().
      *
      * @return The current instance.
-     * @throw UnsupportedOperationException If the application is not of type Stored Value.
+     * @throw UnsupportedOperationException If the SV feature is not available for this card.
      * @since 1.0.0
      */
     virtual CardTransactionManager& prepareSvReadAllLogs() = 0;
@@ -1021,7 +1030,7 @@ public:
      *
      * @param pin The PIN code value (4-byte long byte array).
      * @return The current instance.
-     * @throw UnsupportedOperationException If the PIN feature is not available for this card
+     * @throws UnsupportedOperationException If the PIN feature is not available for this card.
      * @throw IllegalArgumentException If the provided argument is out of range.
      * @throw IllegalStateException If commands have been prepared before invoking this process
      *        method.
