@@ -412,8 +412,10 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareReadBinary(const uint8_t sfi,
-                                                      const uint8_t offset,
-                                                      const uint8_t nbBytesToRead) = 0;
+                                                      const int offset,
+
+                                                      const int
+                                                       nbBytesToRead) = 0;
 
     /**
      * Schedules the execution of a <b>Read Records</b> command to reads a record of the indicated EF,
@@ -586,7 +588,7 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareUpdateBinary(const uint8_t sfi,
-                                                        const uint8_t offset,
+                                                        const int offset,
                                                         const std::vector<uint8_t>& data) = 0;
 
     /**
@@ -607,7 +609,7 @@ public:
      * @since 1.1.0
      */
     virtual CardTransactionManager& prepareWriteBinary(const uint8_t sfi,
-                                                       const uint8_t offset,
+                                                       const int offset,
                                                        const std::vector<uint8_t>&  data) = 0;
 
     /**
