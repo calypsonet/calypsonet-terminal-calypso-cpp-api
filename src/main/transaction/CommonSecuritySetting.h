@@ -36,9 +36,13 @@ using namespace calypsonet::terminal::reader;
  * @param <S> The type of the lowest level child object.
  * @since 1.2.0
  */
-template <typename S>
 class CommonSecuritySetting {
 public:
+    /**
+     * 
+     */
+    virtual ~CommonSecuritySetting() = default;
+    
     /**
      * Defines the control SAM and the reader through which it is accessible to be used to handle
      * the relevant cryptographic operations.
@@ -50,8 +54,9 @@ public:
      *        CalypsoSam is equal to CalypsoSam::ProductType::UNKNOWN.
      * @since 1.2.0
      */
-    virtual S& setControlSamResource(const std::shared_ptr<CardReader> samReader,
-                                     const std::shared_ptr<CalypsoSam> calypsoSam) = 0;
+    virtual CommonSecuritySetting& setControlSamResource(
+        const std::shared_ptr<CardReader> samReader,
+        const std::shared_ptr<CalypsoSam> calypsoSam) = 0;
 
     /**
      * Sets the service to be used to dynamically check if a SAM is revoked or not.
@@ -61,7 +66,8 @@ public:
      * @throws IllegalArgumentException If the provided service is null.
      * @since 1.2.0
      */
-    virtual S& setSamRevocationService(const std::shared_ptr<SamRevocationServiceSpi> service) = 0;
+    virtual CommonSecuritySetting& setSamRevocationService(
+        const std::shared_ptr<SamRevocationServiceSpi> service) = 0;
 };
 
 }

@@ -36,7 +36,7 @@ using namespace calypsonet::terminal::reader;
  *
  * @since 1.0.0
  */
-class CardSecuritySetting : virtual public CommonSecuritySetting<CardSecuritySetting> {
+class CardSecuritySetting : virtual public CommonSecuritySetting {
 public:
     /**
      * Defines the SAM and the reader through which it is accessible to be used to handle the
@@ -190,6 +190,7 @@ public:
      */
     virtual CardSecuritySetting& setPinModificationCipheringKey(const uint8_t kif,
                                                                 const uint8_t kvc) = 0;
+
 };
 
 }
