@@ -51,7 +51,7 @@ public:
      * @return Null if the transaction does not use security settings.
      * @since 1.2.0
      */
-    virtual const std::shared_ptr<S> getSecuritySetting() const = 0;
+    virtual const std::shared_ptr<CommonSecuritySetting> getSecuritySetting() const = 0;
 
     /**
      * Returns the audit data of the transaction containing all APDU exchanges with the card and the

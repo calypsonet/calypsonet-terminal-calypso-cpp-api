@@ -22,7 +22,7 @@ namespace transaction {
  *
  * @since 1.2.0
  */
-class SamSecuritySetting : virtual public CommonSecuritySetting<SamSecuritySetting> {
+class SamSecuritySetting : virtual public CommonSecuritySetting {
 public:
     /**
      *
