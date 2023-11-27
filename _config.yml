@@ -1,4 +1,5 @@
 theme: jekyll-theme-minimal
 title: Calypsonet Terminal Calypso C++ API
+url: "https://calypso-card-cpp.terminal-api.calypsonet.org"
 include:
   - "_*.html"
